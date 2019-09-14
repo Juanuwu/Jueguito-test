@@ -95,8 +95,8 @@ class enemy:
 
 class proyectil():
     def __init__(self,x,y,radio,color, facing):
-        self.x = x
-        self.y = y
+        self.x = int(x)
+        self.y = int(y)
         self.radio = radio
         self.color = color
         self.facing = facing
@@ -104,7 +104,7 @@ class proyectil():
     
     def draw(self,uwu):
             
-            pygame.draw.circle(uwu, self.color, (self.x, self.y),self.radio)
+            pygame.draw.circle(uwu, self.color, (self.x,self.y),self.radio)
             
         
 
