@@ -46,6 +46,7 @@ class player(object):
                     win.blit(walkLeft[0], (self.x,self.y))
         self.hitbox = (self.x + 11, self.y, 28,60)
         pygame.draw.rect(win,(255,0,0),self.hitbox,2)
+man = player(200, 410, 64,64)
 class enemy:
     def __init__(self,x,y,width,height,end):
         self.x = x
@@ -75,21 +76,20 @@ class enemy:
             self.hitbox = (self.x + 16, self.y+2, 28,60)
             pygame.draw.rect(win,(255,0,0),self.hitbox,2)
     
-    def move(self):
-        if self.vel > 0:
-            if self.x + self.vel < self.path[1]:
-                self.x += self.vel
-                
-            else:
-                self.vel = self.vel * -1
-                self.walkCount = 0
-        else:
-            if self.x - self.vel > self.path[0]:
-                self.x += self.vel
-                
-            else:
-                self.vel = self.vel * -1
-                self.walkCount = 0
+    def move(self, speed=1): # chase movement
+        # Movement along x direction
+        
+        
+        
+        if self.x > man.x:
+                self.x -= speed
+        elif self.x < man.x:
+                self.x += speed
+            # Movement along y direction
+        if self.y < man.y:
+                self.y += speed
+        elif self.y > man.y:
+                self.y -= speed
                 
         
 
@@ -119,7 +119,7 @@ def redrawGameWindow():
 
 
 #mainloop
-man = player(200, 410, 64,64)
+
 enemy1 = enemy(100,410,64,64, 450)
 run = True
 shootLoop = 0
