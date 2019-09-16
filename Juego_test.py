@@ -61,6 +61,8 @@ class enemy:
 
     def hit(self):
         print("hit")
+        
+        
 
     
     def draw(self,win):
@@ -90,7 +92,7 @@ class enemy:
                 self.y += speed
         elif self.y > man.y:
                 self.y -= speed
-                
+         
         
 
 class proyectil():
@@ -115,12 +117,14 @@ def redrawGameWindow():
     for bullet in bullets:
         bullet.draw(win)
     enemy1.draw(win)
+    enemy2.draw(win)
     pygame.display.update()
 
 
 #mainloop
 
 enemy1 = enemy(100,410,64,64, 450)
+enemy2 = enemy(500,410,64,64, 450)
 run = True
 shootLoop = 0
 bullets = []
@@ -134,11 +138,16 @@ while run:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             run = False
-    
+    #hay que encontrar una forma de hacer esto que no requiera dos millones de loops porque es una crotada y va a explotar todo buenas tardes
     for bullet in bullets:
         if bullet.y + bullet.radio < enemy1.hitbox[1] + enemy1.hitbox[3] and bullet.y + bullet.radio > enemy1.hitbox[1]:
             if bullet.x + bullet.radio > enemy1.hitbox[0] and bullet.x - bullet.radio < enemy1.hitbox[0] + enemy1.hitbox[2]:
                 enemy1.hit()
+                bullets.pop(bullets.index(bullet))
+    for bullet in bullets:
+        if bullet.y + bullet.radio < enemy2.hitbox[1] + enemy2.hitbox[3] and bullet.y + bullet.radio > enemy2.hitbox[1]:
+            if bullet.x + bullet.radio > enemy2.hitbox[0] and bullet.x - bullet.radio < enemy2.hitbox[0] + enemy2.hitbox[2]:
+                enemy2.hit()
                 bullets.pop(bullets.index(bullet))
         if bullet.x < 700 and bullet.x > 0:
             bullet.x += bullet.vel
