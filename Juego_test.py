@@ -109,7 +109,7 @@ class proyectil():
             
         
 
-
+#función en la que se ponen todas las cosas que se quieren mostrar en la pantalla así no es todo un quilombo
 def redrawGameWindow():
     win.blit(bg, (0,0))
     man.draw(win)    
@@ -120,16 +120,18 @@ def redrawGameWindow():
     pygame.display.update()
 
 
-#mainloop
 
+#acá están los dos enemigos porque hay dos enemigos, BASTANTE SIMPLE
 enemy1 = enemy(100,410,64,64, 450)
 enemy2 = enemy(500,410,64,64, 450)
 run = True
 shootLoop = 0
 bullets = []
+#empieza el loop principial, python no tiene main así que usamos un while uwu
 while run:
     
     clock.tick(27)
+    #todo este choclo hasta la parte donde pone keys son las colisiones de las balas, después hay que hacer que de menos asco y sacarlo de aca
     if shootLoop > 0:
         shootLoop += 1
     if shootLoop > 3:
@@ -154,6 +156,7 @@ while run:
         else:
             bullets.pop(bullets.index(bullet))
 
+    #boton para disparar
     keys = pygame.key.get_pressed()
     if keys[pygame.K_q] and shootLoop == 0:
         if man.left:
@@ -164,7 +167,7 @@ while run:
              bullets.append(proyectil(round(man.x + man.width // 2), round(man.y + man. height //2),5,(0,0,0), facing))
              shootLoop = 1
     
-    
+    #teclas para moverse
     if keys[pygame.K_LEFT]:
         man.x -= man.vel
         man.left = True
@@ -178,7 +181,7 @@ while run:
     else:
         man.standing = True
         man.walkCount = 0
-        
+    #salto
     if not(man.isJump):
         if keys[pygame.K_SPACE]:
             man.isJump = True
@@ -196,7 +199,7 @@ while run:
             man.jumpCount = 7
             
     redrawGameWindow()
-
+#coso que hace que si te vas por un lado salgas por el otro
     #bordes
     if man.x > 700:
         man.x = -40
