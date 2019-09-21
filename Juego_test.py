@@ -1,19 +1,22 @@
 import pygame
+import os
 pygame.init()
-#configura la ventana
+
 win = pygame.display.set_mode((700,500))
 pygame.display.set_caption("uwu")
 clock = pygame.time.Clock()
+dirname = os.path.dirname(__file__)
 
-#cargar imágenes
-walkRight =[pygame.image.load('E:\Juan\Documents\Documentos\Python\Juego test\Game\R1.png'), pygame.image.load('E:\Juan\Documents\Documentos\Python\Juego test\Game\R2.png'),pygame.image.load('E:\Juan\Documents\Documentos\Python\Juego test\Game\R3.png'),pygame.image.load('E:\Juan\Documents\Documentos\Python\Juego test\Game\R4.png'),pygame.image.load('E:\Juan\Documents\Documentos\Python\Juego test\Game\R5.png'),pygame.image.load('E:\Juan\Documents\Documentos\Python\Juego test\Game\R6.png'),pygame.image.load('E:\Juan\Documents\Documentos\Python\Juego test\Game\R7.png'),pygame.image.load('E:\Juan\Documents\Documentos\Python\Juego test\Game\R8.png'),pygame.image.load('E:\Juan\Documents\Documentos\Python\Juego test\Game\R9.png')]
-walkLeft =[pygame.image.load('E:\Juan\Documents\Documentos\Python\Juego test\Game\L1.png'), pygame.image.load('E:\Juan\Documents\Documentos\Python\Juego test\Game\L2.png'),pygame.image.load('E:\Juan\Documents\Documentos\Python\Juego test\Game\L3.png'),pygame.image.load('E:\Juan\Documents\Documentos\Python\Juego test\Game\L4.png'),pygame.image.load('E:\Juan\Documents\Documentos\Python\Juego test\Game\L5.png'),pygame.image.load('E:\Juan\Documents\Documentos\Python\Juego test\Game\L6.png'),pygame.image.load('E:\Juan\Documents\Documentos\Python\Juego test\Game\L7.png'),pygame.image.load('E:\Juan\Documents\Documentos\Python\Juego test\Game\L8.png'),pygame.image.load('E:\Juan\Documents\Documentos\Python\Juego test\Game\L9.png')]
-char = pygame.image.load('E:\Juan\Documents\Documentos\Python\Juego test\Game\standing.png')
-bg = pygame.image.load('E:\Juan\Documents\Documentos\Python\Juego test\Game\coso.jpg')                                                                                                                                                                                                                                                                                                                                                              
-enemieWalkRight =[pygame.image.load('E:\Juan\Documents\Documentos\Python\Juego test\Game\R1E.png'), pygame.image.load('E:\Juan\Documents\Documentos\Python\Juego test\Game\R2E.png'),pygame.image.load('E:\Juan\Documents\Documentos\Python\Juego test\Game\R3E.png'),pygame.image.load('E:\Juan\Documents\Documentos\Python\Juego test\Game\R4E.png'),pygame.image.load('E:\Juan\Documents\Documentos\Python\Juego test\Game\R5E.png'),pygame.image.load('E:\Juan\Documents\Documentos\Python\Juego test\Game\R6E.png'),pygame.image.load('E:\Juan\Documents\Documentos\Python\Juego test\Game\R7E.png'),pygame.image.load('E:\Juan\Documents\Documentos\Python\Juego test\Game\R8E.png'),pygame.image.load('E:\Juan\Documents\Documentos\Python\Juego test\Game\R9E.png')]
-enemieWalkLeft = [pygame.image.load('E:\Juan\Documents\Documentos\Python\Juego test\Game\L1E.png'), pygame.image.load('E:\Juan\Documents\Documentos\Python\Juego test\Game\L2E.png'),pygame.image.load('E:\Juan\Documents\Documentos\Python\Juego test\Game\L3E.png'),pygame.image.load('E:\Juan\Documents\Documentos\Python\Juego test\Game\L4E.png'),pygame.image.load('E:\Juan\Documents\Documentos\Python\Juego test\Game\L5E.png'),pygame.image.load('E:\Juan\Documents\Documentos\Python\Juego test\Game\L6E.png'),pygame.image.load('E:\Juan\Documents\Documentos\Python\Juego test\Game\L7E.png'),pygame.image.load('E:\Juan\Documents\Documentos\Python\Juego test\Game\L8E.png'),pygame.image.load('E:\Juan\Documents\Documentos\Python\Juego test\Game\L9E.png')]
-elefanteRight = [pygame.image.load('E:\Juan\Documents\Documentos\Python\Juego test\Game\F1.png'), pygame.image.load('E:\Juan\Documents\Documentos\Python\Juego test\Game\F2.png'),pygame.image.load('E:\Juan\Documents\Documentos\Python\Juego test\Game\F3.png'),pygame.image.load('E:\Juan\Documents\Documentos\Python\Juego test\Game\F4.png'),pygame.image.load('E:\Juan\Documents\Documentos\Python\Juego test\Game\F5.png'),pygame.image.load('E:\Juan\Documents\Documentos\Python\Juego test\Game\F6.png'),pygame.image.load('E:\Juan\Documents\Documentos\Python\Juego test\Game\F7.png'),pygame.image.load('E:\Juan\Documents\Documentos\Python\Juego test\Game\F8.png'),pygame.image.load('E:\Juan\Documents\Documentos\Python\Juego test\Game\F9.png')]
-#clases con los atributos de el personaje principal y el enemigo
+
+
+walkRight =[pygame.image.load(os.path.join(dirname, 'Game/R1.png')), pygame.image.load(os.path.join(dirname, 'Game/R2.png')), pygame.image.load(os.path.join(dirname, 'Game/R3.png')),pygame.image.load(os.path.join(dirname, 'Game/R4.png')),pygame.image.load(os.path.join(dirname, 'Game/R5.png')),pygame.image.load(os.path.join(dirname, 'Game/R6.png')),pygame.image.load(os.path.join(dirname, 'Game/R7.png')),pygame.image.load(os.path.join(dirname, 'Game/R8.png')),pygame.image.load(os.path.join(dirname, 'Game/R9.png'))]
+walkLeft = [pygame.image.load(os.path.join(dirname, 'Game/L1.png')), pygame.image.load(os.path.join(dirname, 'Game/L2.png')), pygame.image.load(os.path.join(dirname, 'Game/L3.png')),pygame.image.load(os.path.join(dirname, 'Game/L4.png')),pygame.image.load(os.path.join(dirname, 'Game/L5.png')),pygame.image.load(os.path.join(dirname, 'Game/L6.png')),pygame.image.load(os.path.join(dirname, 'Game/L7.png')),pygame.image.load(os.path.join(dirname, 'Game/L8.png')),pygame.image.load(os.path.join(dirname, 'Game/L9.png'))]
+char = pygame.image.load(os.path.join(dirname, 'Game/standing.png'))
+bg = pygame.image.load(os.path.join(dirname, 'Game/coso.jpg'))                                                                                                                                                                                                                                                                                                                                                              
+enemieWalkRight =[pygame.image.load(os.path.join(dirname, 'Game/R1E.png')), pygame.image.load(os.path.join(dirname, 'Game/R2E.png')), pygame.image.load(os.path.join(dirname, 'Game/R3E.png')),pygame.image.load(os.path.join(dirname, 'Game/R4E.png')),pygame.image.load(os.path.join(dirname, 'Game/R5E.png')),pygame.image.load(os.path.join(dirname, 'Game/R6E.png')),pygame.image.load(os.path.join(dirname, 'Game/R7E.png')),pygame.image.load(os.path.join(dirname, 'Game/R8E.png')),pygame.image.load(os.path.join(dirname, 'Game/R9E.png'))]
+enemieWalkLeft = [pygame.image.load(os.path.join(dirname, 'Game/L1E.png')), pygame.image.load(os.path.join(dirname, 'Game/L2E.png')), pygame.image.load(os.path.join(dirname, 'Game/L3E.png')),pygame.image.load(os.path.join(dirname, 'Game/L4E.png')),pygame.image.load(os.path.join(dirname, 'Game/L5E.png')),pygame.image.load(os.path.join(dirname, 'Game/L6E.png')),pygame.image.load(os.path.join(dirname, 'Game/L7E.png')),pygame.image.load(os.path.join(dirname, 'Game/L8E.png')),pygame.image.load(os.path.join(dirname, 'Game/L9E.png'))]
+elefanteRight = [pygame.image.load(os.path.join(dirname, 'Game/F1.png')), pygame.image.load(os.path.join(dirname, 'Game/F2.png')), pygame.image.load(os.path.join(dirname, 'Game/F3.png')),pygame.image.load(os.path.join(dirname, 'Game/F4.png')),pygame.image.load(os.path.join(dirname, 'Game/F5.png')),pygame.image.load(os.path.join(dirname, 'Game/F6.png')),pygame.image.load(os.path.join(dirname, 'Game/F7.png')),pygame.image.load(os.path.join(dirname, 'Game/F8.png')),pygame.image.load(os.path.join(dirname, 'Game/F9.png'))]
+
 class player(object):
     def __init__(self,x,y,width,height):
         self.x = x
@@ -28,7 +31,7 @@ class player(object):
         self.jumpCount = 7
         self.standing = True
         self.hitbox = (self.x + 20, self.y, 28,60)
-    #funcion que define para qué lado se está caminante y dibuja al personaje en la pantalla
+
     def draw(self, uwu):
         if self.walkCount + 1 >= 27:
             self.walkCount = 0
@@ -78,22 +81,19 @@ class enemy:
             self.hitbox = (self.x + 16, self.y+2, 28,60)
             pygame.draw.rect(win,(255,0,0),self.hitbox,2)
     
-    #funcion que hace que los enemigos te sigan, si tiene comentarios en inglés es probablemente porque me lo robé de por ahí
     def move(self, speed=1): # chase movement
         # Movement along x direction
+        
+        
         
         if self.x > man.x:
                 self.x -= speed
         elif self.x < man.x:
                 self.x += speed
-            # Movement along y direction
-        if self.y < man.y:
-                self.y += speed
-        elif self.y > man.y:
-                self.y -= speed
+        
          
         
-#lo que dice el puto nombre fabián no te puedo explicar todo la puta madre estamos grandes ya pibe
+
 class proyectil():
     def __init__(self,x,y,radio,color, facing):
         self.x = int(x)
@@ -109,7 +109,7 @@ class proyectil():
             
         
 
-#función en la que se ponen todas las cosas que se quieren mostrar en la pantalla así no es todo un quilombo
+
 def redrawGameWindow():
     win.blit(bg, (0,0))
     man.draw(win)    
@@ -120,18 +120,16 @@ def redrawGameWindow():
     pygame.display.update()
 
 
+#mainloop
 
-#acá están los dos enemigos porque hay dos enemigos, BASTANTE SIMPLE
 enemy1 = enemy(100,410,64,64, 450)
 enemy2 = enemy(500,410,64,64, 450)
 run = True
 shootLoop = 0
 bullets = []
-#empieza el loop principial, python no tiene main así que usamos un while uwu
 while run:
     
     clock.tick(27)
-    #todo este choclo hasta la parte donde pone keys son las colisiones de las balas, después hay que hacer que de menos asco y sacarlo de aca
     if shootLoop > 0:
         shootLoop += 1
     if shootLoop > 3:
@@ -156,7 +154,6 @@ while run:
         else:
             bullets.pop(bullets.index(bullet))
 
-    #boton para disparar
     keys = pygame.key.get_pressed()
     if keys[pygame.K_q] and shootLoop == 0:
         if man.left:
@@ -167,7 +164,7 @@ while run:
              bullets.append(proyectil(round(man.x + man.width // 2), round(man.y + man. height //2),5,(0,0,0), facing))
              shootLoop = 1
     
-    #teclas para moverse
+    
     if keys[pygame.K_LEFT]:
         man.x -= man.vel
         man.left = True
@@ -181,7 +178,7 @@ while run:
     else:
         man.standing = True
         man.walkCount = 0
-    #salto
+        
     if not(man.isJump):
         if keys[pygame.K_SPACE]:
             man.isJump = True
@@ -199,7 +196,7 @@ while run:
             man.jumpCount = 7
             
     redrawGameWindow()
-#coso que hace que si te vas por un lado salgas por el otro
+
     #bordes
     if man.x > 700:
         man.x = -40
