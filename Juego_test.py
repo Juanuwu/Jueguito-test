@@ -66,10 +66,11 @@ class enemy:
         self.vel = 3
         self.path = [self.x, self.end]
         self.hitbox = (self.x + 16, self.y+2, 28,60)
-        self.direccion = 0
+        self.direccion = 2
 
     def hit(self):
         print("hit")
+        self.direccion = 0
         
         
 
@@ -84,6 +85,9 @@ class enemy:
             elif self.direccion == -1:
                 win.blit(enemieWalkLeft[self.walkCount // 3],(self.x, self.y))
                 self.walkCount += 1
+            elif self.direccion == 0:
+				print("uwu")
+				
             self.hitbox = (self.x + 16, self.y+2, 28,60)
             pygame.draw.rect(win,(255,0,0),self.hitbox,2)
     
@@ -93,13 +97,13 @@ class enemy:
         # Movement along x direction
         
         
-        
-        if self.x > man.x:
-                self.x -= speed
-                self.direccion = 1
-        elif self.x < man.x:
-                self.x += speed
-                self.direccion = -1
+        if self.direccion != 0:
+			if self.x > man.x:
+					self.x -= speed
+					self.direccion = 1
+			elif self.x < man.x:
+					self.x += speed
+					self.direccion = -1
         
          
         
