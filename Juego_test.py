@@ -18,6 +18,7 @@ bg = pygame.image.load(os.path.join(dirname, 'Game/coso.jpg'))
 enemieWalkRight =[pygame.image.load(os.path.join(dirname, 'Game/R1E.png')), pygame.image.load(os.path.join(dirname, 'Game/R2E.png')), pygame.image.load(os.path.join(dirname, 'Game/R3E.png')),pygame.image.load(os.path.join(dirname, 'Game/R4E.png')),pygame.image.load(os.path.join(dirname, 'Game/R5E.png')),pygame.image.load(os.path.join(dirname, 'Game/R6E.png')),pygame.image.load(os.path.join(dirname, 'Game/R7E.png')),pygame.image.load(os.path.join(dirname, 'Game/R8E.png')),pygame.image.load(os.path.join(dirname, 'Game/R9E.png'))]
 enemieWalkLeft = [pygame.image.load(os.path.join(dirname, 'Game/L1E.png')), pygame.image.load(os.path.join(dirname, 'Game/L2E.png')), pygame.image.load(os.path.join(dirname, 'Game/L3E.png')),pygame.image.load(os.path.join(dirname, 'Game/L4E.png')),pygame.image.load(os.path.join(dirname, 'Game/L5E.png')),pygame.image.load(os.path.join(dirname, 'Game/L6E.png')),pygame.image.load(os.path.join(dirname, 'Game/L7E.png')),pygame.image.load(os.path.join(dirname, 'Game/L8E.png')),pygame.image.load(os.path.join(dirname, 'Game/L9E.png'))]
 elefanteRight = [pygame.image.load(os.path.join(dirname, 'Game/F1.png')), pygame.image.load(os.path.join(dirname, 'Game/F2.png')), pygame.image.load(os.path.join(dirname, 'Game/F3.png')),pygame.image.load(os.path.join(dirname, 'Game/F4.png')),pygame.image.load(os.path.join(dirname, 'Game/F5.png')),pygame.image.load(os.path.join(dirname, 'Game/F6.png')),pygame.image.load(os.path.join(dirname, 'Game/F7.png')),pygame.image.load(os.path.join(dirname, 'Game/F8.png')),pygame.image.load(os.path.join(dirname, 'Game/F9.png'))]
+elefanteLeft = 0;
 
 class player(object):
     def __init__(self,x,y,width,height):
@@ -65,6 +66,7 @@ class enemy:
         self.vel = 3
         self.path = [self.x, self.end]
         self.hitbox = (self.x + 16, self.y+2, 28,60)
+        self.direccion = 0
 
     def hit(self):
         print("hit")
@@ -76,10 +78,10 @@ class enemy:
             self.move()
             if self.walkCount + 1 >= 27:
                 self.walkCount = 0
-            if self.vel > 0:
+            if self.direccion == 1:
                 win.blit(elefanteRight[self.walkCount // 3], (self.x, self.y))
                 self.walkCount += 1
-            else:
+            elif self.direccion == -1:
                 win.blit(enemieWalkLeft[self.walkCount // 3],(self.x, self.y))
                 self.walkCount += 1
             self.hitbox = (self.x + 16, self.y+2, 28,60)
@@ -94,8 +96,10 @@ class enemy:
         
         if self.x > man.x:
                 self.x -= speed
+                self.direccion = 1
         elif self.x < man.x:
                 self.x += speed
+                self.direccion = -1
         
          
         
