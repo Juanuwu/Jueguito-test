@@ -57,6 +57,7 @@ class player(object):
 man = player(200, 410, 64,64)
 class enemy:
     def __init__(self,x,y,width,height,end):
+        self.vida = 10
         self.x = x
         self.y = y
         self.width = width
@@ -70,7 +71,9 @@ class enemy:
 
     def hit(self):
         print("hit")
-        enemigos.pop()
+        self.vida -= 2
+        if self.vida <= 0:
+            enemigos.pop()
         
         
 
@@ -116,7 +119,7 @@ class proyectil():
         self.radio = radio
         self.color = color
         self.facing = facing
-        self.vel = 3 * facing
+        self.vel = 8 * facing
     
     def draw(self,uwu):
             
@@ -166,18 +169,22 @@ while run:
         if event.type == pygame.QUIT:
             run = False
     #hay que encontrar una forma de hacer esto que no requiera dos millones de loops porque es una crotada y va a explotar todo buenas tardes
-    for enemy in enemigos:
-        for bullet in bullets:
-            if bullet.y + bullet.radio < enemy.hitbox[1] + enemy.hitbox[3] and bullet.y + bullet.radio > enemy.hitbox[1]:
-                if bullet.x + bullet.radio > enemy.hitbox[0] and bullet.x - bullet.radio < enemy.hitbox[0] + enemy.hitbox[2]:
-                    enemy.hit()
-                    bullets.pop(bullets.index(bullet))
+    #forma encontrada buenas tardes
+    
+    for bullet in bullets:
+        if len(enemigos) > 0:
+            for enemy in enemigos:
+                if bullet.y + bullet.radio < enemy.hitbox[1] + enemy.hitbox[3] and bullet.y + bullet.radio > enemy.hitbox[1]:
+                    if bullet.x + bullet.radio > enemy.hitbox[0] and bullet.x - bullet.radio < enemy.hitbox[0] + enemy.hitbox[2]:
+                        enemy.hit()
+                        if len(bullets) > 0:
+                            bullets.pop()
 
             #si las balas empiezan a hacer cosas raras el problema esta aca, pero ahora no me voy a molestar en cambiarlo
-            if bullet.x < 700 and bullet.x > 0:
+        if bullet.x < 700 and bullet.x > 0:
                 bullet.x += bullet.vel
     
-            else:
+        else:
                 bullets.pop(bullets.index(bullet))
 
         #boton para disparar
