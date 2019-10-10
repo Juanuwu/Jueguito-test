@@ -18,7 +18,7 @@ bg = pygame.image.load(os.path.join(dirname, 'Game/coso.jpg'))
 enemieWalkRight =[pygame.image.load(os.path.join(dirname, 'Game/R1E.png')), pygame.image.load(os.path.join(dirname, 'Game/R2E.png')), pygame.image.load(os.path.join(dirname, 'Game/R3E.png')),pygame.image.load(os.path.join(dirname, 'Game/R4E.png')),pygame.image.load(os.path.join(dirname, 'Game/R5E.png')),pygame.image.load(os.path.join(dirname, 'Game/R6E.png')),pygame.image.load(os.path.join(dirname, 'Game/R7E.png')),pygame.image.load(os.path.join(dirname, 'Game/R8E.png')),pygame.image.load(os.path.join(dirname, 'Game/R9E.png'))]
 enemieWalkLeft = [pygame.image.load(os.path.join(dirname, 'Game/L1E.png')), pygame.image.load(os.path.join(dirname, 'Game/L2E.png')), pygame.image.load(os.path.join(dirname, 'Game/L3E.png')),pygame.image.load(os.path.join(dirname, 'Game/L4E.png')),pygame.image.load(os.path.join(dirname, 'Game/L5E.png')),pygame.image.load(os.path.join(dirname, 'Game/L6E.png')),pygame.image.load(os.path.join(dirname, 'Game/L7E.png')),pygame.image.load(os.path.join(dirname, 'Game/L8E.png')),pygame.image.load(os.path.join(dirname, 'Game/L9E.png'))]
 elefanteRight = [pygame.image.load(os.path.join(dirname, 'Game/F1.png')), pygame.image.load(os.path.join(dirname, 'Game/F2.png')), pygame.image.load(os.path.join(dirname, 'Game/F3.png')),pygame.image.load(os.path.join(dirname, 'Game/F4.png')),pygame.image.load(os.path.join(dirname, 'Game/F5.png')),pygame.image.load(os.path.join(dirname, 'Game/F6.png')),pygame.image.load(os.path.join(dirname, 'Game/F7.png')),pygame.image.load(os.path.join(dirname, 'Game/F8.png')),pygame.image.load(os.path.join(dirname, 'Game/F9.png'))]
-elefanteLeft = 0;
+elefanteLeft = 0
 
 class player(object):
     def __init__(self,x,y,width,height):
@@ -70,7 +70,7 @@ class enemy:
 
     def hit(self):
         print("hit")
-        self.direccion = 0
+        enemigos.pop()
         
         
 
@@ -116,7 +116,7 @@ class proyectil():
         self.radio = radio
         self.color = color
         self.facing = facing
-        self.vel = 8 * facing
+        self.vel = 3 * facing
     
     def draw(self,uwu):
             
@@ -131,7 +131,9 @@ def redrawGameWindow():
     man.draw(win)    
     for bullet in bullets:
         bullet.draw(win)
-    enemigos[0].draw(win)
+    for enemy in enemigos:
+        enemy.draw(win)
+    
     pygame.display.update()
 
 
@@ -144,6 +146,10 @@ shootLoop = 0
 bullets = []
 enemigos = []
 enemigos.append(enemy(100,410,64,64, 450))
+enemigos.append(enemy(80,410,64,64, 450))
+enemigos.append(enemy(320,410,64,64, 450))
+enemigos.append(enemy(300,410,64,64, 450))
+
 
 #empieza el loop principial, python no tiene main asi que usamos un while uwu
 while run:
@@ -160,17 +166,19 @@ while run:
         if event.type == pygame.QUIT:
             run = False
     #hay que encontrar una forma de hacer esto que no requiera dos millones de loops porque es una crotada y va a explotar todo buenas tardes
-    for bullet in bullets:
-        if bullet.y + bullet.radio < enemigos[0].hitbox[1] + enemigos[0].hitbox[3] and bullet.y + bullet.radio > enemigos[0].hitbox[1]:
-            if bullet.x + bullet.radio > enemigos[0].hitbox[0] and bullet.x - bullet.radio < enemigos[0].hitbox[0] + enemigos[0].hitbox[2]:
-                enemigos[0].hit()
+    for enemy in enemigos:
+        for bullet in bullets:
+            if bullet.y + bullet.radio < enemy.hitbox[1] + enemy.hitbox[3] and bullet.y + bullet.radio > enemy.hitbox[1]:
+                if bullet.x + bullet.radio > enemy.hitbox[0] and bullet.x - bullet.radio < enemy.hitbox[0] + enemy.hitbox[2]:
+                    enemy.hit()
+                    bullets.pop(bullets.index(bullet))
+
+            #si las balas empiezan a hacer cosas raras el problema esta aca, pero ahora no me voy a molestar en cambiarlo
+            if bullet.x < 700 and bullet.x > 0:
+                bullet.x += bullet.vel
+    
+            else:
                 bullets.pop(bullets.index(bullet))
-    
-        if bullet.x < 700 and bullet.x > 0:
-            bullet.x += bullet.vel
-    
-        else:
-            bullets.pop(bullets.index(bullet))
 
         #boton para disparar
 
@@ -180,7 +188,7 @@ while run:
            facing = -1
         else:
           facing  = 1
-        if len(bullets) < 100:
+        if len(bullets) < 50:
              bullets.append(proyectil(round(man.x + man.width // 2), round(man.y + man. height //2),5,(0,0,0), facing))
              shootLoop = 1
     
@@ -226,3 +234,4 @@ while run:
         
     
 pygame.quit()
+
