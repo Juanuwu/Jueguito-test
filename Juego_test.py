@@ -1,5 +1,7 @@
 import pygame
 import os
+import time
+import random
 pygame.init()
 
 #configuracion de la ventana
@@ -56,30 +58,32 @@ class player(object):
 
 man = player(200, 410, 64,64)
 class enemy:
-    def __init__(self,x,y,width,height,end):
+    def __init__(self,x,y,width,height):
         self.vida = 10
         self.x = x
         self.y = y
         self.width = width
         self.height = height
-        self.end = end
+        
         self.walkCount = 0
-        self.vel = 3
-        self.path = [self.x, self.end]
+        self.vel = random.randint(1, 4)
+        
         self.hitbox = (self.x + 16, self.y+2, 28,60)
         self.direccion = 2
+    
 
     def hit(self):
         print("hit")
         self.vida -= 2
         if self.vida <= 0:
             enemigos.pop()
+            
         
         
 
     
     def draw(self,win):
-            self.move()
+            self.move(self.vel)
             if self.walkCount + 1 >= 27:
                 self.walkCount = 0
             if self.direccion == 1:
@@ -96,7 +100,7 @@ class enemy:
     
     #funcion que hace que los enemigos te sigan, si tiene comentarios en ingles es probablemente porque me lo robe de por ahi
 
-    def move(self, speed=1): # chase movement
+    def move(self, speed): # chase movement
         # Movement along x direction
         
         
@@ -107,8 +111,8 @@ class enemy:
 			elif self.x < man.x:
 					self.x += speed
 					self.direccion = -1
-        
-         
+    
+    
         
 #lo que dice el puto nombre fabian no te puedo explicar todo la puta madre estamos grandes ya pibe
 
@@ -121,6 +125,7 @@ class proyectil():
         self.facing = facing
         self.vel = 8 * facing
     
+
     def draw(self,uwu):
             
             pygame.draw.circle(uwu, self.color, (self.x,self.y),self.radio)
@@ -128,6 +133,9 @@ class proyectil():
         
 
 #funcion en la que se ponen todas las cosas que se quieren mostrar en la pantalla asi no es todo un quilombo
+
+
+
 
 def redrawGameWindow():
     win.blit(bg, (0,0))
@@ -148,10 +156,13 @@ run = True
 shootLoop = 0
 bullets = []
 enemigos = []
-enemigos.append(enemy(100,410,64,64, 450))
-enemigos.append(enemy(80,410,64,64, 450))
-enemigos.append(enemy(320,410,64,64, 450))
-enemigos.append(enemy(300,410,64,64, 450))
+
+enemigos.append(enemy(100,410,64,64))
+enemigos.append(enemy(80,410,64,64))
+enemigos.append(enemy(320,410,64,64))
+enemigos.append(enemy(300,410,64,64))
+
+
 
 
 #empieza el loop principial, python no tiene main asi que usamos un while uwu
@@ -160,7 +171,12 @@ while run:
     clock.tick(27)
     #todo este choclo hasta la parte donde pone keys son las colisiones de las balas, despues hay que hacer que de menos asco y sacarlo de aca
 	
-	
+    
+    
+
+        
+        
+
     if shootLoop > 0:
         shootLoop += 1
     if shootLoop > 3:
