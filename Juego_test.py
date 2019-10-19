@@ -2,6 +2,7 @@ import pygame
 import os
 import time
 import random
+
 pygame.init()
 
 #configuracion de la ventana
@@ -22,6 +23,18 @@ elefanteRight = [pygame.image.load(os.path.join(dirname, 'Game/L1E.png')), pygam
 enemieWalkLeft = [pygame.image.load(os.path.join(dirname, 'Game/F1.png')), pygame.image.load(os.path.join(dirname, 'Game/F2.png')), pygame.image.load(os.path.join(dirname, 'Game/F3.png')),pygame.image.load(os.path.join(dirname, 'Game/F4.png')),pygame.image.load(os.path.join(dirname, 'Game/F5.png')),pygame.image.load(os.path.join(dirname, 'Game/F6.png')),pygame.image.load(os.path.join(dirname, 'Game/F7.png')),pygame.image.load(os.path.join(dirname, 'Game/F8.png')),pygame.image.load(os.path.join(dirname, 'Game/F9.png'))]
 elefanteLeft = 0
 
+class platform():
+    def __init__(self,x,y,width,height):
+        self.x = x
+        self.y = y
+        self.width = width
+        self.height = height
+        self.rect = pygame.Rect(self.x + 20, self.y, self.height,self.width)
+        
+    def draw(self,win):
+        pygame.draw.rect(win,(255,0,0),self.rect)
+        
+
 class player(object):
     def __init__(self,x,y,width,height):
         self.x = x
@@ -36,7 +49,7 @@ class player(object):
         self.jumpCount = 7
         self.standing = True
         self.hitbox = (self.x + 20, self.y, 28,60)
-
+        self.rect = pygame.draw.rect(win,(255,0,0),self.hitbox,2)
     
     def draw(self, uwu):
         if self.walkCount + 1 >= 27:
@@ -54,10 +67,10 @@ class player(object):
             else:
                     win.blit(walkLeft[0], (self.x,self.y))
         self.hitbox = (self.x + 11, self.y, 28,60)
-        pygame.draw.rect(win,(255,0,0),self.hitbox,2)
+        #pygame.draw.rect(win,(255,0,0),self.hitbox,2)
 
 man = player(200, 410, 64,64)
-class enemy:
+class enemi:
     def __init__(self,x,y,width,height):
         self.vida = 10
         self.x = x
@@ -96,7 +109,7 @@ class enemy:
 				print("uwu")
 				
             self.hitbox = (self.x + 16, self.y+2, 28,60)
-            pygame.draw.rect(win,(255,0,0),self.hitbox,2)
+            #pygame.draw.rect(win,(255,0,0),self.hitbox,2)
     
     #funcion que hace que los enemigos te sigan, si tiene comentarios en ingles es probablemente porque me lo robe de por ahi
 
@@ -144,6 +157,8 @@ def redrawGameWindow():
         bullet.draw(win)
     for enemy in enemigos:
         enemy.draw(win)
+    for platform in platforms:
+        platform.draw(win)
     
     pygame.display.update()
 
@@ -156,12 +171,13 @@ run = True
 shootLoop = 0
 bullets = []
 enemigos = []
+platforms = []
 
-enemigos.append(enemy(100,410,64,64))
-enemigos.append(enemy(80,410,64,64))
-enemigos.append(enemy(320,410,64,64))
-enemigos.append(enemy(300,410,64,64))
-
+enemigos.append(enemi(100,410,64,64))
+enemigos.append(enemi(80,410,64,64))
+enemigos.append(enemi(320,410,64,64))
+enemigos.append(enemi(300,410,64,64))
+platforms.append(platform(300,400,30,200))
 
 
 
@@ -170,13 +186,9 @@ while run:
     
     clock.tick(27)
     #todo este choclo hasta la parte donde pone keys son las colisiones de las balas, despues hay que hacer que de menos asco y sacarlo de aca
-	
+    if len(enemigos) <= 0:
+        enemigos.append(enemi(300,410,64,64))
     
-    
-
-        
-        
-
     if shootLoop > 0:
         shootLoop += 1
     if shootLoop > 3:
@@ -186,7 +198,10 @@ while run:
             run = False
     #hay que encontrar una forma de hacer esto que no requiera dos millones de loops porque es una crotada y va a explotar todo buenas tardes
     #forma encontrada buenas tardes
-    
+    for platform in platforms:
+        if platform.rect.colliderect(man.hitbox):
+            print"uwu"
+
     for bullet in bullets:
         if len(enemigos) > 0:
             for enemy in enemigos:
