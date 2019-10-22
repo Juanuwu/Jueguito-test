@@ -50,6 +50,7 @@ class player(object):
         self.standing = True
         self.hitbox = (self.x + 20, self.y, 28,60)
         self.rect = pygame.draw.rect(win,(255,0,0),self.hitbox,2)
+        self.inGround = True
     
     def draw(self, uwu):
         if self.walkCount + 1 >= 27:
@@ -149,7 +150,7 @@ class proyectil():
 
 def gravedad():
     
-        man.y += 20
+        man.y += 22
 
 
 
@@ -181,6 +182,7 @@ enemigos.append(enemi(80,410,64,64))
 enemigos.append(enemi(320,410,64,64))
 enemigos.append(enemi(300,410,64,64))
 platforms.append(platform(300,400,30,200))
+platforms.append(platform(550,300,30,200))
 
 
 
@@ -194,7 +196,9 @@ while run:
     
     if  man.y < 410 and flag != 1 and man.isJump == False:
         gravedad()
-        
+    if  man.y == 410:
+        man.inGround = True
+
     flag = 0
     if shootLoop > 0:
         shootLoop += 1
@@ -206,8 +210,9 @@ while run:
     #hay que encontrar una forma de hacer esto que no requiera dos millones de loops porque es una crotada y va a explotar todo buenas tardes
     #forma encontrada buenas tardes
     for platform in platforms:
-        if platform.rect.colliderect(man.hitbox):
-            man.y = platform.y -50
+        if platform.rect.colliderect(man.hitbox) and man.y < platform.y-20:
+            man.y = platform.y -55
+            man.inGround = True
             flag = 1
             
     
@@ -258,7 +263,7 @@ while run:
     
         #salto
     if not(man.isJump):
-        if keys[pygame.K_SPACE]:
+        if keys[pygame.K_SPACE] and man.inGround:
             man.isJump = True
             man.standing = True
             man.walkCount = 0
@@ -278,7 +283,7 @@ while run:
             man.jumpCount = 8
             
     redrawGameWindow()
-
+    man.inGround = False
     #bordes
     if man.x > 700:
         man.x = -40
