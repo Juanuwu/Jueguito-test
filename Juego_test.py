@@ -46,7 +46,7 @@ class player(object):
         self.left = False
         self.right = False
         self.walkCount = 0
-        self.jumpCount = 7
+        self.jumpCount = 8
         self.standing = True
         self.hitbox = (self.x + 20, self.y, 28,60)
         self.rect = pygame.draw.rect(win,(255,0,0),self.hitbox,2)
@@ -147,6 +147,10 @@ class proyectil():
 
 #funcion en la que se ponen todas las cosas que se quieren mostrar en la pantalla asi no es todo un quilombo
 
+def gravedad():
+    
+        man.y += 20
+
 
 
 
@@ -165,8 +169,7 @@ def redrawGameWindow():
 
 
 #aca estan los dos enemigos porque hay dos enemigos, BASTANTE SIMPLE
-
-
+flag = 0
 run = True
 shootLoop = 0
 bullets = []
@@ -189,6 +192,10 @@ while run:
     if len(enemigos) <= 0:
         enemigos.append(enemi(300,410,64,64))
     
+    if  man.y < 410 and flag != 1 and man.isJump == False:
+        gravedad()
+        
+    flag = 0
     if shootLoop > 0:
         shootLoop += 1
     if shootLoop > 3:
@@ -200,8 +207,10 @@ while run:
     #forma encontrada buenas tardes
     for platform in platforms:
         if platform.rect.colliderect(man.hitbox):
-            print"uwu"
-
+            man.y = platform.y -50
+            flag = 1
+            
+    
     for bullet in bullets:
         if len(enemigos) > 0:
             for enemy in enemigos:
@@ -244,7 +253,9 @@ while run:
     else:
         man.standing = True
         man.walkCount = 0
-        
+    
+    
+    
         #salto
     if not(man.isJump):
         if keys[pygame.K_SPACE]:
@@ -252,15 +263,19 @@ while run:
             man.standing = True
             man.walkCount = 0
     else:
-        if man.jumpCount >= -7:
+        if man.jumpCount >= -8:
             neg = 1
+            
+            
             if man.jumpCount < 0:
-                neg = -1
-            man.y -= (man.jumpCount ** 2) * 0.5 * neg
-            man.jumpCount -= 1
+                    neg = -1
+            
+            if man.isJump:     
+                man.y -= (man.jumpCount ** 2) * 0.5 * neg
+                man.jumpCount -= 1
         else:
             man.isJump = False
-            man.jumpCount = 7
+            man.jumpCount = 8
             
     redrawGameWindow()
 
