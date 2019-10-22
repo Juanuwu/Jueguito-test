@@ -146,15 +146,22 @@ class proyectil():
             
         
 
-#funcion en la que se ponen todas las cosas que se quieren mostrar en la pantalla asi no es todo un quilombo
+
 
 def gravedad():
     
         man.y += 22
 
 
+def gravedadTest():
+    if  man.y < 410 and flag != 1 and man.isJump == False:
+        gravedad()
+    if man.y >410:
+        man.y = 410
+    if  man.y == 410:
+        man.inGround = True
 
-
+#funcion en la que se ponen todas las cosas que se quieren mostrar en la pantalla asi no es todo un quilombo
 def redrawGameWindow():
     win.blit(bg, (0,0))
     man.draw(win)    
@@ -194,12 +201,12 @@ while run:
     if len(enemigos) <= 0:
         enemigos.append(enemi(300,410,64,64))
     
-    if  man.y < 410 and flag != 1 and man.isJump == False:
-        gravedad()
-    if  man.y == 410:
-        man.inGround = True
-
+    #determina si el personaje esta en una plataforma o en el piso, si no lo esta lo tira para abajo hasta que lo este, no se si esta es una forma
+    #decente de hacerlo pero es la que se me ocurrio sin buscar un video en youtube, porque me dio paja
+    gravedadTest()
+    #esto se pone en uno cuando el personaje esta en una plataforma, hay que ponerle un nombre que no sea flag
     flag = 0
+
     if shootLoop > 0:
         shootLoop += 1
     if shootLoop > 3:
