@@ -31,6 +31,7 @@ class platform():
         self.height = height
         self.rect = pygame.Rect(self.x + 20, self.y, self.height,self.width)
         
+        
     def draw(self,win):
         pygame.draw.rect(win,(255,0,0),self.rect)
         
@@ -48,10 +49,18 @@ class player(object):
         self.walkCount = 0
         self.jumpCount = 8
         self.standing = True
-        self.hitbox = (self.x + 20, self.y, 28,60)
+        self.hitbox = (self.x , self.y, 28,60)
         self.rect = pygame.draw.rect(win,(255,0,0),self.hitbox,2)
         self.inGround = True
+        self.vida = 15
     
+    def colision(self, enemigo):
+        
+        if self.y < enemy.hitbox[1] + enemy.hitbox[3] and self.y > enemy.hitbox[1]:
+            if self.x > enemy.hitbox[0] and self.x < enemy.hitbox[0] + enemy.hitbox[2]:
+                print("uwu")
+
+
     def draw(self, uwu):
         if self.walkCount + 1 >= 27:
             self.walkCount = 0
@@ -68,7 +77,7 @@ class player(object):
             else:
                     win.blit(walkLeft[0], (self.x,self.y))
         self.hitbox = (self.x + 11, self.y, 28,60)
-        #pygame.draw.rect(win,(255,0,0),self.hitbox,2)
+        pygame.draw.rect(win,(255,0,0),self.hitbox,2)
 
 man = player(200, 410, 64,64)
 class enemi:
@@ -84,6 +93,7 @@ class enemi:
         
         self.hitbox = (self.x + 16, self.y+2, 28,60)
         self.direccion = 2
+        self.rect = pygame.Rect(self.x, self.y, self.height,self.width)
     
 
     def hit(self):
@@ -110,7 +120,7 @@ class enemi:
 				print("uwu")
 				
             self.hitbox = (self.x + 16, self.y+2, 28,60)
-            #pygame.draw.rect(win,(255,0,0),self.hitbox,2)
+            pygame.draw.rect(win,(255,0,0),self.hitbox,2)
     
     #funcion que hace que los enemigos te sigan, si tiene comentarios en ingles es probablemente porque me lo robe de por ahi
 
@@ -125,7 +135,7 @@ class enemi:
 			elif self.x < man.x:
 					self.x += speed
 					self.direccion = -1
-    
+        self.rect = pygame.Rect(self.x, self.y, self.height,self.width)
     
         
 #lo que dice el puto nombre fabian no te puedo explicar todo la puta madre estamos grandes ya pibe
@@ -164,7 +174,11 @@ def gravedadTest():
 #funcion en la que se ponen todas las cosas que se quieren mostrar en la pantalla asi no es todo un quilombo
 def redrawGameWindow():
     win.blit(bg, (0,0))
-    man.draw(win)    
+    if(man.vida >= 0):
+        man.draw(win)  
+    elif keys[pygame.K_SPACE]:
+        man.vida = 15
+
     for bullet in bullets:
         bullet.draw(win)
     for enemy in enemigos:
@@ -190,6 +204,7 @@ enemigos.append(enemi(320,410,64,64))
 enemigos.append(enemi(300,410,64,64))
 platforms.append(platform(300,400,30,200))
 platforms.append(platform(550,300,30,200))
+platforms.append(platform(200,200,30,200))
 
 
 
@@ -221,7 +236,8 @@ while run:
             man.y = platform.y -55
             man.inGround = True
             flag = 1
-            
+    #for enemy in enemigos:
+        #man.colision(enemy)       
     
     for bullet in bullets:
         if len(enemigos) > 0:
@@ -229,8 +245,10 @@ while run:
                 if bullet.y + bullet.radio < enemy.hitbox[1] + enemy.hitbox[3] and bullet.y + bullet.radio > enemy.hitbox[1]:
                     if bullet.x + bullet.radio > enemy.hitbox[0] and bullet.x - bullet.radio < enemy.hitbox[0] + enemy.hitbox[2]:
                         enemy.hit()
+                        
                         if len(bullets) > 0:
                             bullets.pop()
+    
 
             #si las balas empiezan a hacer cosas raras el problema esta aca, pero ahora no me voy a molestar en cambiarlo
         if bullet.x < 700 and bullet.x > 0:
@@ -239,8 +257,12 @@ while run:
         else:
                 bullets.pop(bullets.index(bullet))
 
+    #cuando un enemigo se choca con el personaje, juan del futuro deja de llenar todo de fors pls te quiero no me lastimes
+    for enemy in enemigos:
+        if enemy.rect.colliderect(man.hitbox):
+            man.vida -= 1
         #boton para disparar
-
+    
     keys = pygame.key.get_pressed()
     if keys[pygame.K_q] and shootLoop == 0:
         if man.left:
