@@ -30,7 +30,7 @@ class platform():
         self.width = width
         self.height = height
         self.rect = pygame.Rect(self.x + 20, self.y, self.height,self.width)
-
+        self.end = self.height -20
 
     def draw(self,win):
         pygame.draw.rect(win,(255,0,0),self.rect)
@@ -42,6 +42,7 @@ class plataformaChica():
         self.width = 30
         self.height = 64
         self.rect = pygame.Rect(self.x + 20, self.y, self.height,self.width)
+        self.end = self.height -20
     
     def draw(self,win):
         pygame.draw.rect(win,(255,0,0),self.rect)
@@ -92,7 +93,7 @@ class player(object):
         pygame.draw.rect(win,(255,0,0),self.hitbox,2)
 
 man = player(200, 410, 64,64)
-class enemi:
+class enemi(object):
     def __init__(self,x,y,width,height):
         self.vida = 10
         self.x = x
@@ -112,7 +113,7 @@ class enemi:
         print("hit")
         self.vida -= 2
         if self.vida <= 0:
-            enemigos.pop()
+            enemigos.remove(enemy)
 
 
 
@@ -133,9 +134,8 @@ class enemi:
 
             self.hitbox = (self.x + 16, self.y+2, 28,60)
             pygame.draw.rect(win,(255,0,0),self.hitbox,2)
-
+    
     #funcion que hace que los enemigos te sigan, si tiene comentarios en ingles es probablemente porque me lo robe de por ahi
-
     def move(self, speed): # chase movement
         # Movement along x direction
 
@@ -150,6 +150,30 @@ class enemi:
         self.rect = pygame.Rect(self.x, self.y, self.height,self.width)
 
 
+class enemigoPlat(enemi):
+    def __init__(self,x,y,width,height):
+        enemi.__init__(self,x,y,width,height)
+        super(enemi,self).__init__()
+        self.pathStart = platform.x
+        self.pathEnd = platform.x +platform.end
+        self.flag = 0
+        self.y = platform.y -60
+        
+    def move(self, speed):
+        if self.x <= self.pathEnd and self.flag ==  0:
+            self.x += speed
+            self.direccion = -1
+        
+        if self.x >= self.pathEnd:
+            self.flag = 1
+        
+        if self.flag == 1:
+            self.x -= speed
+            self.direccion = 1
+            if self.x <self.pathStart:
+                self. flag = 0
+        
+
 #lo que dice el puto nombre fabian no te puedo explicar todo la puta madre estamos grandes ya pibe
 
 class proyectil():
@@ -160,6 +184,8 @@ class proyectil():
         self.color = color
         self.facing = facing
         self.vel = 8 * facing
+        
+        
 
 
     def draw(self,uwu):
@@ -209,7 +235,7 @@ shootLoop = 0
 bullets = []
 enemigos = []
 platforms = []
-
+x = 0
 enemigos.append(enemi(100,410,64,64))
 enemigos.append(enemi(80,410,64,64))
 enemigos.append(enemi(320,410,64,64))
@@ -253,6 +279,9 @@ while run:
             man.y = platform.y -55
             man.inGround = True
             flag = 1
+        if(x <5):
+            enemigos.append(enemigoPlat(platform.x,410,64,64))
+            x+= 1
     #for enemy in enemigos:
         #man.colision(enemy)
 
