@@ -245,7 +245,7 @@ while run:
         if event.type == pygame.MOUSEBUTTONUP:
 
             x, y = pygame.mouse.get_pos()
-            platforms.append(plataformaChica(x,y))
+            platforms.append(plataformaChica(x-50,y-10))
     #hay que encontrar una forma de hacer esto que no requiera dos millones de loops porque es una crotada y va a explotar todo buenas tardes
     #forma encontrada buenas tardes
     for platform in platforms:
