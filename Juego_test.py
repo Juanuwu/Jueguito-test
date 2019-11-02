@@ -17,7 +17,7 @@ dirname = os.path.dirname(__file__)
 walkRight =[pygame.image.load(os.path.join(dirname, 'Game/R1.png')), pygame.image.load(os.path.join(dirname, 'Game/R2.png')), pygame.image.load(os.path.join(dirname, 'Game/R3.png')),pygame.image.load(os.path.join(dirname, 'Game/R4.png')),pygame.image.load(os.path.join(dirname, 'Game/R5.png')),pygame.image.load(os.path.join(dirname, 'Game/R6.png')),pygame.image.load(os.path.join(dirname, 'Game/R7.png')),pygame.image.load(os.path.join(dirname, 'Game/R8.png')),pygame.image.load(os.path.join(dirname, 'Game/R9.png'))]
 walkLeft = [pygame.image.load(os.path.join(dirname, 'Game/L1.png')), pygame.image.load(os.path.join(dirname, 'Game/L2.png')), pygame.image.load(os.path.join(dirname, 'Game/L3.png')),pygame.image.load(os.path.join(dirname, 'Game/L4.png')),pygame.image.load(os.path.join(dirname, 'Game/L5.png')),pygame.image.load(os.path.join(dirname, 'Game/L6.png')),pygame.image.load(os.path.join(dirname, 'Game/L7.png')),pygame.image.load(os.path.join(dirname, 'Game/L8.png')),pygame.image.load(os.path.join(dirname, 'Game/L9.png'))]
 char = pygame.image.load(os.path.join(dirname, 'Game/standing.png'))
-bg = pygame.image.load(os.path.join(dirname, 'Game/coso.jpg'))                                                                                                                                                                                                                                                                                                                                                              
+bg = pygame.image.load(os.path.join(dirname, 'Game/coso.jpg'))
 #enemieWalkRight =[pygame.image.load(os.path.join(dirname, 'Game/R1E.png')), pygame.image.load(os.path.join(dirname, 'Game/R2E.png')), pygame.image.load(os.path.join(dirname, 'Game/R3E.png')),pygame.image.load(os.path.join(dirname, 'Game/R4E.png')),pygame.image.load(os.path.join(dirname, 'Game/R5E.png')),pygame.image.load(os.path.join(dirname, 'Game/R6E.png')),pygame.image.load(os.path.join(dirname, 'Game/R7E.png')),pygame.image.load(os.path.join(dirname, 'Game/R8E.png')),pygame.image.load(os.path.join(dirname, 'Game/R9E.png'))]
 elefanteRight = [pygame.image.load(os.path.join(dirname, 'Game/L1E.png')), pygame.image.load(os.path.join(dirname, 'Game/L2E.png')), pygame.image.load(os.path.join(dirname, 'Game/L3E.png')),pygame.image.load(os.path.join(dirname, 'Game/L4E.png')),pygame.image.load(os.path.join(dirname, 'Game/L5E.png')),pygame.image.load(os.path.join(dirname, 'Game/L6E.png')),pygame.image.load(os.path.join(dirname, 'Game/L7E.png')),pygame.image.load(os.path.join(dirname, 'Game/L8E.png')),pygame.image.load(os.path.join(dirname, 'Game/L9E.png'))]
 enemieWalkLeft = [pygame.image.load(os.path.join(dirname, 'Game/F1.png')), pygame.image.load(os.path.join(dirname, 'Game/F2.png')), pygame.image.load(os.path.join(dirname, 'Game/F3.png')),pygame.image.load(os.path.join(dirname, 'Game/F4.png')),pygame.image.load(os.path.join(dirname, 'Game/F5.png')),pygame.image.load(os.path.join(dirname, 'Game/F6.png')),pygame.image.load(os.path.join(dirname, 'Game/F7.png')),pygame.image.load(os.path.join(dirname, 'Game/F8.png')),pygame.image.load(os.path.join(dirname, 'Game/F9.png'))]
@@ -30,11 +30,23 @@ class platform():
         self.width = width
         self.height = height
         self.rect = pygame.Rect(self.x + 20, self.y, self.height,self.width)
-        
-        
+
+
     def draw(self,win):
         pygame.draw.rect(win,(255,0,0),self.rect)
-        
+
+class plataformaChica():
+    def __init__(self,x,y):
+        self.x = x
+        self.y = y
+        self.width = 30
+        self.height = 64
+        self.rect = pygame.Rect(self.x + 20, self.y, self.height,self.width)
+    
+    def draw(self,win):
+        pygame.draw.rect(win,(255,0,0),self.rect)
+    
+    
 
 class player(object):
     def __init__(self,x,y,width,height):
@@ -53,9 +65,9 @@ class player(object):
         self.rect = pygame.draw.rect(win,(255,0,0),self.hitbox,2)
         self.inGround = True
         self.vida = 15
-    
+
     def colision(self, enemigo):
-        
+
         if self.y < enemy.hitbox[1] + enemy.hitbox[3] and self.y > enemy.hitbox[1]:
             if self.x > enemy.hitbox[0] and self.x < enemy.hitbox[0] + enemy.hitbox[2]:
                 print("uwu")
@@ -87,25 +99,25 @@ class enemi:
         self.y = y
         self.width = width
         self.height = height
-        
+
         self.walkCount = 0
         self.vel = random.randint(1, 4)
-        
+
         self.hitbox = (self.x + 16, self.y+2, 28,60)
         self.direccion = 2
         self.rect = pygame.Rect(self.x, self.y, self.height,self.width)
-    
+
 
     def hit(self):
         print("hit")
         self.vida -= 2
         if self.vida <= 0:
             enemigos.pop()
-            
-        
-        
 
-    
+
+
+
+
     def draw(self,win):
             self.move(self.vel)
             if self.walkCount + 1 >= 27:
@@ -117,27 +129,27 @@ class enemi:
                 win.blit(enemieWalkLeft[self.walkCount // 3],(self.x, self.y))
                 self.walkCount += 1
             elif self.direccion == 0:
-				print("uwu")
-				
+                print("uwu")
+
             self.hitbox = (self.x + 16, self.y+2, 28,60)
             pygame.draw.rect(win,(255,0,0),self.hitbox,2)
-    
+
     #funcion que hace que los enemigos te sigan, si tiene comentarios en ingles es probablemente porque me lo robe de por ahi
 
     def move(self, speed): # chase movement
         # Movement along x direction
-        
-        
+
+
         if self.direccion != 0:
-			if self.x > man.x:
-					self.x -= speed
-					self.direccion = 1
-			elif self.x < man.x:
-					self.x += speed
-					self.direccion = -1
+            if self.x > man.x:
+                    self.x -= speed
+                    self.direccion = 1
+            elif self.x < man.x:
+                    self.x += speed
+                    self.direccion = -1
         self.rect = pygame.Rect(self.x, self.y, self.height,self.width)
-    
-        
+
+
 #lo que dice el puto nombre fabian no te puedo explicar todo la puta madre estamos grandes ya pibe
 
 class proyectil():
@@ -148,18 +160,18 @@ class proyectil():
         self.color = color
         self.facing = facing
         self.vel = 8 * facing
-    
+
 
     def draw(self,uwu):
-            
+
             pygame.draw.circle(uwu, self.color, (self.x,self.y),self.radio)
-            
-        
+
+
 
 
 
 def gravedad():
-    
+
         man.y += 22
 
 
@@ -175,7 +187,7 @@ def gravedadTest():
 def redrawGameWindow():
     win.blit(bg, (0,0))
     if(man.vida >= 0):
-        man.draw(win)  
+        man.draw(win)
     elif keys[pygame.K_SPACE]:
         man.vida = 15
 
@@ -185,7 +197,7 @@ def redrawGameWindow():
         enemy.draw(win)
     for platform in platforms:
         platform.draw(win)
-    
+
     pygame.display.update()
 
 
@@ -205,17 +217,18 @@ enemigos.append(enemi(300,410,64,64))
 platforms.append(platform(300,400,30,200))
 platforms.append(platform(550,300,30,200))
 platforms.append(platform(200,200,30,200))
+platforms.append(plataformaChica(500,200))
 
 
 
 #empieza el loop principial, python no tiene main asi que usamos un while uwu
 while run:
-    
+
     clock.tick(27)
     #todo este choclo hasta la parte donde pone keys son las colisiones de las balas, despues hay que hacer que de menos asco y sacarlo de aca
     if len(enemigos) <= 0:
         enemigos.append(enemi(300,410,64,64))
-    
+
     #determina si el personaje esta en una plataforma o en el piso, si no lo esta lo tira para abajo hasta que lo este, no se si esta es una forma
     #decente de hacerlo pero es la que se me ocurrio sin buscar un video en youtube, porque me dio paja
     gravedadTest()
@@ -229,6 +242,10 @@ while run:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             run = False
+        if event.type == pygame.MOUSEBUTTONUP:
+
+            x, y = pygame.mouse.get_pos()
+            platforms.append(plataformaChica(x,y))
     #hay que encontrar una forma de hacer esto que no requiera dos millones de loops porque es una crotada y va a explotar todo buenas tardes
     #forma encontrada buenas tardes
     for platform in platforms:
@@ -237,23 +254,23 @@ while run:
             man.inGround = True
             flag = 1
     #for enemy in enemigos:
-        #man.colision(enemy)       
-    
+        #man.colision(enemy)
+
     for bullet in bullets:
         if len(enemigos) > 0:
             for enemy in enemigos:
                 if bullet.y + bullet.radio < enemy.hitbox[1] + enemy.hitbox[3] and bullet.y + bullet.radio > enemy.hitbox[1]:
                     if bullet.x + bullet.radio > enemy.hitbox[0] and bullet.x - bullet.radio < enemy.hitbox[0] + enemy.hitbox[2]:
                         enemy.hit()
-                        
+
                         if len(bullets) > 0:
                             bullets.pop()
-    
+
 
             #si las balas empiezan a hacer cosas raras el problema esta aca, pero ahora no me voy a molestar en cambiarlo
         if bullet.x < 700 and bullet.x > 0:
                 bullet.x += bullet.vel
-    
+
         else:
                 bullets.pop(bullets.index(bullet))
 
@@ -262,7 +279,7 @@ while run:
         if enemy.rect.colliderect(man.hitbox):
             man.vida -= 1
         #boton para disparar
-    
+
     keys = pygame.key.get_pressed()
     if keys[pygame.K_q] and shootLoop == 0:
         if man.left:
@@ -272,7 +289,7 @@ while run:
         if len(bullets) < 50:
              bullets.append(proyectil(round(man.x + man.width // 2), round(man.y + man. height //2),5,(0,0,0), facing))
              shootLoop = 1
-    
+
     #teclas para moverse
     if keys[pygame.K_LEFT]:
         man.x -= man.vel
@@ -288,8 +305,8 @@ while run:
         man.standing = True
         man.walkCount = 0
     
-    
-    
+
+
         #salto
     if not(man.isJump):
         if keys[pygame.K_SPACE] and man.inGround:
@@ -299,18 +316,18 @@ while run:
     else:
         if man.jumpCount >= -8:
             neg = 1
-            
-            
+
+
             if man.jumpCount < 0:
                     neg = -1
-            
-            if man.isJump:     
+
+            if man.isJump:
                 man.y -= (man.jumpCount ** 2) * 0.5 * neg
                 man.jumpCount -= 1
         else:
             man.isJump = False
             man.jumpCount = 8
-            
+
     redrawGameWindow()
     man.inGround = False
     #bordes
@@ -318,7 +335,7 @@ while run:
         man.x = -40
     if man.x < -50:
         man.x = 700
-        
-    
+
+
 pygame.quit()
 
