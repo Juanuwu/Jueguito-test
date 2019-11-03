@@ -273,7 +273,7 @@ while run:
     #hay que encontrar una forma de hacer esto que no requiera dos millones de loops porque es una crotada y va a explotar todo buenas tardes
     #forma encontrada buenas tardes
     for platform in platforms:
-        if platform.rect.colliderect(man.hitbox) and man.y < platform.y-20:
+        if platform.rect.colliderect(man.hitbox) and man.y < platform.y:
             man.y = platform.y -55
             man.inGround = True
             flag = 1
