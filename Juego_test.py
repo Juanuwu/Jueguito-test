@@ -67,11 +67,7 @@ class player(object):
         self.inGround = True
         self.vida = 15
 
-    def colision(self, enemigo):
-
-        if self.y < enemy.hitbox[1] + enemy.hitbox[3] and self.y > enemy.hitbox[1]:
-            if self.x > enemy.hitbox[0] and self.x < enemy.hitbox[0] + enemy.hitbox[2]:
-                print("uwu")
+    
 
 
     def draw(self, uwu):
@@ -106,7 +102,7 @@ class enemi(object):
 
         self.hitbox = (self.x + 16, self.y+2, 28,60)
         self.direccion = 2
-        self.rect = pygame.Rect(self.x, self.y, self.height,self.width)
+        self.rect = pygame.draw.rect(win,(255,0,0),self.hitbox,2)
 
 
     def hit(self):
@@ -159,6 +155,7 @@ class enemigoPlat(enemi):
         self.flag = 0
         self.y = platform.y -60
         
+        
     def move(self, speed):
         if self.x <= self.pathEnd and self.flag ==  0:
             self.x += speed
@@ -172,7 +169,7 @@ class enemigoPlat(enemi):
             self.direccion = 1
             if self.x <self.pathStart:
                 self. flag = 0
-        
+        self.rect = pygame.draw.rect(win,(255,0,0),self.hitbox,2)
 
 #lo que dice el puto nombre fabian no te puedo explicar todo la puta madre estamos grandes ya pibe
 
@@ -305,8 +302,9 @@ while run:
 
     #cuando un enemigo se choca con el personaje, juan del futuro deja de llenar todo de fors pls te quiero no me lastimes
     for enemy in enemigos:
-        if enemy.rect.colliderect(man.hitbox):
+        if enemy.rect.colliderect(man .hitbox):
             man.vida -= 1
+            print("oh no")
         #boton para disparar
 
     keys = pygame.key.get_pressed()
