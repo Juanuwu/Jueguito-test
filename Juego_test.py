@@ -65,7 +65,8 @@ class player(object):
         self.hitbox = (self.x , self.y, 28,60)
         self.rect = pygame.draw.rect(win,(255,0,0),self.hitbox,2)
         self.inGround = True
-        self.vida = 15
+        self.vida = 25
+       
 
     
 
@@ -98,7 +99,7 @@ class enemi(object):
         self.height = height
 
         self.walkCount = 0
-        self.vel = random.randint(1, 4)
+        self.vel = random.randint(1, 3)
 
         self.hitbox = (self.x + 16, self.y+2, 28,60)
         self.direccion = 2
@@ -212,7 +213,7 @@ def redrawGameWindow():
     if(man.vida >= 0):
         man.draw(win)
     elif keys[pygame.K_SPACE]:
-        man.vida = 15
+        man.vida = 25
 
     for bullet in bullets:
         bullet.draw(win)
@@ -220,7 +221,7 @@ def redrawGameWindow():
         enemy.draw(win)
     for platform in platforms:
         platform.draw(win)
-
+    pygame.draw.rect(win,(255,0,0),(0,0,man.vida*10,20,),0)
     pygame.display.update()
 
 
@@ -235,8 +236,8 @@ platforms = []
 x = 0
 enemigos.append(enemi(100,410,64,64))
 enemigos.append(enemi(80,410,64,64))
-enemigos.append(enemi(320,410,64,64))
-enemigos.append(enemi(300,410,64,64))
+
+
 platforms.append(platform(300,400,30,200))
 platforms.append(platform(550,300,30,200))
 platforms.append(platform(200,200,30,200))
