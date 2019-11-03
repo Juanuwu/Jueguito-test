@@ -102,7 +102,7 @@ class enemi(object):
 
         self.hitbox = (self.x + 16, self.y+2, 28,60)
         self.direccion = 2
-        self.rect = pygame.draw.rect(win,(255,0,0),self.hitbox,2)
+        self.rect = pygame.draw.rect(win,(0,0,0),self.hitbox,2)
 
 
     def hit(self):
@@ -169,7 +169,7 @@ class enemigoPlat(enemi):
             self.direccion = 1
             if self.x <self.pathStart:
                 self. flag = 0
-        self.rect = pygame.draw.rect(win,(255,0,0),self.hitbox,2)
+        self.rect = pygame.Rect(self.x, self.y, self.height,self.width)
 
 #lo que dice el puto nombre fabian no te puedo explicar todo la puta madre estamos grandes ya pibe
 
