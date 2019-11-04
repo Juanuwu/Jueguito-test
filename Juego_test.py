@@ -66,8 +66,13 @@ class player(object):
         self.rect = pygame.draw.rect(win,(255,0,0),self.hitbox,2)
         self.inGround = True
         self.vida = 25
+        self.contador = 0
        
-
+    def die(self):
+        self.contador = 0
+        del enemigos[:]
+        self.x = 200
+        self.y = 410
     
 
 
@@ -113,6 +118,7 @@ class enemi(object):
             enemigos.remove(enemy)
 
 
+    
 
 
 
@@ -214,6 +220,7 @@ def redrawGameWindow():
         man.draw(win)
     elif keys[pygame.K_SPACE]:
         man.vida = 25
+        man.die()
 
     for bullet in bullets:
         bullet.draw(win)
@@ -233,7 +240,7 @@ shootLoop = 0
 bullets = []
 enemigos = []
 platforms = []
-x = 0
+
 enemigos.append(enemi(100,410,64,64))
 enemigos.append(enemi(80,410,64,64))
 
@@ -277,9 +284,9 @@ while run:
             man.y = platform.y -55
             man.inGround = True
             flag = 1
-        if(x <5):
+        if(man.contador < len(platforms)):
             enemigos.append(enemigoPlat(platform.x,410,64,64))
-            x+= 1
+            man.contador+= 1
     #for enemy in enemigos:
         #man.colision(enemy)
 
