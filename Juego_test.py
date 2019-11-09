@@ -229,17 +229,22 @@ enemigos = []
 platforms = []
 nivel = 1
 
-if(nivel == 1):
-    enemigos.append(enemi(100,410,64,64))
-    enemigos.append(enemi(80,410,64,64))
-
-
-    platforms.append(platform(300,400,30,200))
-    platforms.append(platform(550,300,30,200))
-    platforms.append(platform(200,200,30,200))
-    platforms.append(platform(500,200,30,64))
-
-
+def levelCheck(dato):
+    nivel = dato
+    if(nivel == 1):
+        
+        enemigos.append(enemi(100,410,64,64))
+        enemigos.append(enemi(80,410,64,64))
+        
+        platforms.append(platform(300,400,30,200))
+        platforms.append(platform(550,300,30,200))
+        platforms.append(platform(200,200,30,200))
+        platforms.append(platform(500,200,30,64))
+    else:
+        del enemigos[:]
+        del platforms[:]
+    
+levelCheck(nivel)
 
 #empieza el loop principial, python no tiene main asi que usamos un while uwu
 while run:
@@ -329,8 +334,14 @@ while run:
         man.standing = True
         man.walkCount = 0
     
-
-
+    
+    final = pygame.Rect(200,200,64,64)
+    if final.colliderect(man.hitbox):
+        nivel += 1
+        levelCheck(nivel)
+        print("uwu")
+    
+    
         #salto
     if not(man.isJump):
         if keys[pygame.K_SPACE] and man.inGround:
