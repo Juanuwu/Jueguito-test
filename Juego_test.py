@@ -240,15 +240,17 @@ shootLoop = 0
 bullets = []
 enemigos = []
 platforms = []
+nivel = 1
 
-enemigos.append(enemi(100,410,64,64))
-enemigos.append(enemi(80,410,64,64))
+if(nivel == 1):
+    enemigos.append(enemi(100,410,64,64))
+    enemigos.append(enemi(80,410,64,64))
 
 
-platforms.append(platform(300,400,30,200))
-platforms.append(platform(550,300,30,200))
-platforms.append(platform(200,200,30,200))
-platforms.append(plataformaChica(500,200))
+    platforms.append(platform(300,400,30,200))
+    platforms.append(platform(550,300,30,200))
+    platforms.append(platform(200,200,30,200))
+    platforms.append(plataformaChica(500,200))
 
 
 
@@ -257,8 +259,8 @@ while run:
 
     clock.tick(27)
     #todo este choclo hasta la parte donde pone keys son las colisiones de las balas, despues hay que hacer que de menos asco y sacarlo de aca
-    if len(enemigos) <= 0:
-        enemigos.append(enemi(300,410,64,64))
+    #if len(enemigos) <= 0:
+        #enemigos.append(enemi(300,410,64,64))
 
     #determina si el personaje esta en una plataforma o en el piso, si no lo esta lo tira para abajo hasta que lo este, no se si esta es una forma
     #decente de hacerlo pero es la que se me ocurrio sin buscar un video en youtube, porque me dio paja
