@@ -35,19 +35,6 @@ class platform():
     def draw(self,win):
         pygame.draw.rect(win,(255,0,0),self.rect)
 
-class plataformaChica():
-    def __init__(self,x,y):
-        self.x = x
-        self.y = y
-        self.width = 30
-        self.height = 64
-        self.rect = pygame.Rect(self.x + 20, self.y, self.height,self.width)
-        self.end = self.height -20
-    
-    def draw(self,win):
-        pygame.draw.rect(win,(255,0,0),self.rect)
-    
-    
 
 class player(object):
     def __init__(self,x,y,width,height):
@@ -250,7 +237,7 @@ if(nivel == 1):
     platforms.append(platform(300,400,30,200))
     platforms.append(platform(550,300,30,200))
     platforms.append(platform(200,200,30,200))
-    platforms.append(plataformaChica(500,200))
+    platforms.append(platform(500,200,30,64))
 
 
 
