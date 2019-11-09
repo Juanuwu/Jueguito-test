@@ -334,7 +334,7 @@ while run:
         man.standing = True
         man.walkCount = 0
     
-    
+    #esto es para pasar d enivel y tendria que estar en otro lado porque se me va a perder
     final = pygame.Rect(200,200,64,64)
     if final.colliderect(man.hitbox):
         nivel += 1
