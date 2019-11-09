@@ -54,6 +54,7 @@ class player(object):
         self.inGround = True
         self.vida = 25
         self.contador = 0
+        self.final = pygame.Rect(200,200,64,64)
        
     def die(self):
         self.contador = 0
@@ -335,11 +336,11 @@ while run:
         man.walkCount = 0
     
     #esto es para pasar d enivel y tendria que estar en otro lado porque se me va a perder
-    final = pygame.Rect(200,200,64,64)
-    if final.colliderect(man.hitbox):
+    
+    if man.final.colliderect(man.hitbox):
         nivel += 1
         levelCheck(nivel)
-        print("uwu")
+        
     
     
         #salto
