@@ -229,7 +229,7 @@ shootLoop = 0
 bullets = []
 enemigos = []
 platforms = []
-nivel = 1
+nivel = 2
 
 def levelCheck(dato):
     nivel = dato
@@ -245,7 +245,7 @@ def levelCheck(dato):
 
         
     
-    if(nivel == 2):
+    elif(nivel == 2):
         man.x = 200
         man.y = 410
         del enemigos[:]
@@ -259,6 +259,11 @@ def levelCheck(dato):
         platforms.append(b)
         platforms.append(c)
         man.final = pygame.Rect(550,200,30,200)
+        man.contador = 0
+
+    else: 
+        del enemigos[:]
+        del platforms[:]
         
 
     
