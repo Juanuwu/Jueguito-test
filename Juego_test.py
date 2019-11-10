@@ -23,7 +23,7 @@ elefanteRight = [pygame.image.load(os.path.join(dirname, 'Game/L1E.png')), pygam
 enemieWalkLeft = [pygame.image.load(os.path.join(dirname, 'Game/F1.png')), pygame.image.load(os.path.join(dirname, 'Game/F2.png')), pygame.image.load(os.path.join(dirname, 'Game/F3.png')),pygame.image.load(os.path.join(dirname, 'Game/F4.png')),pygame.image.load(os.path.join(dirname, 'Game/F5.png')),pygame.image.load(os.path.join(dirname, 'Game/F6.png')),pygame.image.load(os.path.join(dirname, 'Game/F7.png')),pygame.image.load(os.path.join(dirname, 'Game/F8.png')),pygame.image.load(os.path.join(dirname, 'Game/F9.png'))]
 elefanteLeft = 0
 
-class platform():
+class platform1():
     def __init__(self,x,y,width,height):
         self.x = x
         self.y = y
@@ -82,7 +82,7 @@ class player(object):
         self.hitbox = (self.x + 11, self.y, 28,60)
         pygame.draw.rect(win,(255,0,0),self.hitbox,2)
 
-man = player(200, 410, 64,64)
+
 class enemi(object):
     def __init__(self,x,y,width,height):
         self.vida = 10
@@ -222,6 +222,7 @@ def redrawGameWindow():
 
 
 #aca estan los dos enemigos porque hay dos enemigos, BASTANTE SIMPLE
+man = player(200, 410, 64,64)
 flag = 0
 run = True
 shootLoop = 0
@@ -237,13 +238,29 @@ def levelCheck(dato):
         enemigos.append(enemi(100,410,64,64))
         enemigos.append(enemi(80,410,64,64))
         
-        platforms.append(platform(300,400,30,200))
-        platforms.append(platform(550,300,30,200))
-        platforms.append(platform(200,200,30,200))
-        platforms.append(platform(500,200,30,64))
-    else:
+        platforms.append(platform1(300,400,30,200))
+        platforms.append(platform1(550,300,30,200))
+        platforms.append(platform1(200,200,30,200))
+        platforms.append(platform1(500,200,30,64))
+
+        
+    
+    if(nivel == 2):
+        man.x = 200
+        man.y = 410
         del enemigos[:]
         del platforms[:]
+        print(len(platforms))
+        
+        a=platform1(100,350,30,200)
+        b=platform1(300,200,30,200)
+        c=platform1(550,200,30,200)
+        platforms.append(a)
+        platforms.append(b)
+        platforms.append(c)
+        man.final = pygame.Rect(550,200,30,200)
+        
+
     
 levelCheck(nivel)
 
