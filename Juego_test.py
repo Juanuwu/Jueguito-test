@@ -233,6 +233,12 @@ nivel = 1
 
 def levelCheck(dato):
     nivel = dato
+    man.x = 200
+    man.y = 410
+    del enemigos[:]
+    del platforms[:]
+    man.contador = 0
+    
     if(nivel == 1):
         
         enemigos.append(enemi(100,410,64,64))
@@ -246,10 +252,7 @@ def levelCheck(dato):
         
     
     elif(nivel == 2):
-        man.x = 200
-        man.y = 410
-        del enemigos[:]
-        del platforms[:]
+        
         
         
         a=platform1(100,350,30,200)
