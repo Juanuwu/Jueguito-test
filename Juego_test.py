@@ -3,6 +3,7 @@ import os
 import time
 import random
 
+
 pygame.init()
 
 #configuracion de la ventana
