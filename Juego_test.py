@@ -238,7 +238,7 @@ def levelCheck(dato):
     del enemigos[:]
     del platforms[:]
     man.contador = 0
-    
+
     if(nivel == 1):
         
         enemigos.append(enemi(100,410,64,64))
@@ -261,12 +261,18 @@ def levelCheck(dato):
         platforms.append(a)
         platforms.append(b)
         platforms.append(c)
-        man.final = pygame.Rect(550,200,30,200)
+        man.final = pygame.Rect(550,200,64,64)
         man.contador = 0
 
-    else: 
-        del enemigos[:]
-        del platforms[:]
+    elif(nivel == 3):
+        platforms.append(platform1(100,375,30,200))
+        platforms.append(platform1(300,250,30,64))
+        platforms.append(platform1(400,240,30,200))
+        platforms.append(platform1(450,400,30,200))
+        platforms.append(platform1(600,325,30,64))
+        platforms.append(platform1(520,150,30,200))
+        man.final = pygame.Rect(560,100,64,64)
+
         
 
     
