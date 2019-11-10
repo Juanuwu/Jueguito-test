@@ -23,6 +23,8 @@ bg = pygame.image.load(os.path.join(dirname, 'Game/coso.jpg'))
 elefanteRight = [pygame.image.load(os.path.join(dirname, 'Game/L1E.png')), pygame.image.load(os.path.join(dirname, 'Game/L2E.png')), pygame.image.load(os.path.join(dirname, 'Game/L3E.png')),pygame.image.load(os.path.join(dirname, 'Game/L4E.png')),pygame.image.load(os.path.join(dirname, 'Game/L5E.png')),pygame.image.load(os.path.join(dirname, 'Game/L6E.png')),pygame.image.load(os.path.join(dirname, 'Game/L7E.png')),pygame.image.load(os.path.join(dirname, 'Game/L8E.png')),pygame.image.load(os.path.join(dirname, 'Game/L9E.png'))]
 enemieWalkLeft = [pygame.image.load(os.path.join(dirname, 'Game/F1.png')), pygame.image.load(os.path.join(dirname, 'Game/F2.png')), pygame.image.load(os.path.join(dirname, 'Game/F3.png')),pygame.image.load(os.path.join(dirname, 'Game/F4.png')),pygame.image.load(os.path.join(dirname, 'Game/F5.png')),pygame.image.load(os.path.join(dirname, 'Game/F6.png')),pygame.image.load(os.path.join(dirname, 'Game/F7.png')),pygame.image.load(os.path.join(dirname, 'Game/F8.png')),pygame.image.load(os.path.join(dirname, 'Game/F9.png'))]
 elefanteLeft = 0
+pinchitoimg = [pygame.transform.scale(pygame.image.load("Game/Spike_B.png"), (30, 30))]
+
 
 class platform1():
     def __init__(self,x,y,width,height):
@@ -106,11 +108,7 @@ class enemi(object):
         if self.vida <= 0:
             enemigos.remove(enemy)
 
-
     
-
-
-
     def draw(self,win):
             self.move(self.vel)
             if self.walkCount + 1 >= 27:
@@ -141,6 +139,18 @@ class enemi(object):
                     self.direccion = -1
         self.rect = pygame.Rect(self.x, self.y, self.height,self.width)
 
+class pinchito():
+    def __init__(self,x,y,width,height): 
+        self.x = x
+        self.y = y
+        self.width = width
+        self.height = height
+        self.rect = pygame.Rect(self.x + 20, self.y, self.height,self.width)
+
+    def draw(self,win):
+        
+        win.blit(pinchitoimg[0],(self.x, self.y))
+        
 
 class enemigoPlat(enemi):
     def __init__(self,x,y,width,height):
@@ -217,9 +227,12 @@ def redrawGameWindow():
         enemy.draw(win)
     for platform in platforms:
         platform.draw(win)
+    for obstaculo in listaPinchitos:
+        obstaculo.draw(win)
+
     pygame.draw.rect(win,(255,0,0),(0,0,man.vida*10,20,),0)
     pygame.display.update()
-
+    
 
 
 #aca estan los dos enemigos porque hay dos enemigos, BASTANTE SIMPLE
@@ -230,7 +243,8 @@ shootLoop = 0
 bullets = []
 enemigos = []
 platforms = []
-nivel = 1
+listaPinchitos = []
+nivel = 2
 
 def levelCheck(dato):
     nivel = dato
@@ -259,6 +273,7 @@ def levelCheck(dato):
         a=platform1(100,350,30,200)
         b=platform1(300,200,30,200)
         c=platform1(550,200,30,200)
+        listaPinchitos.append(pinchito(100,350,30,30))
         platforms.append(a)
         platforms.append(b)
         platforms.append(c)
@@ -341,7 +356,8 @@ while run:
             man.vida -= 1
             print("oh no")
         #boton para disparar
-
+    
+    
     keys = pygame.key.get_pressed()
     if keys[pygame.K_q] and shootLoop == 0:
         if man.left:
