@@ -229,7 +229,7 @@ shootLoop = 0
 bullets = []
 enemigos = []
 platforms = []
-nivel = 2
+nivel = 1
 
 def levelCheck(dato):
     nivel = dato
@@ -250,7 +250,7 @@ def levelCheck(dato):
         man.y = 410
         del enemigos[:]
         del platforms[:]
-        print(len(platforms))
+        
         
         a=platform1(100,350,30,200)
         b=platform1(300,200,30,200)
@@ -293,7 +293,7 @@ while run:
         if event.type == pygame.MOUSEBUTTONUP:
 
             x, y = pygame.mouse.get_pos()
-            platforms.append(plataformaChica(x-50,y-10))
+            platforms.append(platform1(x-50,y-10,30,60))
     #hay que encontrar una forma de hacer esto que no requiera dos millones de loops porque es una crotada y va a explotar todo buenas tardes
     #forma encontrada buenas tardes
     for platform in platforms:
