@@ -244,7 +244,7 @@ bullets = []
 enemigos = []
 platforms = []
 listaPinchitos = []
-nivel = 1
+nivel = 2
 
 def levelCheck(dato):
     nivel = dato
