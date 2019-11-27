@@ -53,7 +53,7 @@ class player(object):
         self.walkCount = 0
         self.jumpCount = 8
         self.standing = True
-        self.hitbox = (self.x , self.y, 28,60)
+        self.hitbox = (self.x+15, self.y-5, 28,60)
         self.rect = pygame.draw.rect(win,(0,0,0),self.hitbox,2)
         self.inGround = True
         self.vida = 25
@@ -83,7 +83,7 @@ class player(object):
                 win.blit(walkRight[0], (self.x,self.y))
             else:
                     win.blit(walkLeft[0], (self.x,self.y))
-        self.hitbox = (self.x + 11, self.y, 28,60)
+        self.hitbox = (self.x+15, self.y+5, 28,60)
         pygame.draw.rect(win,(255,0,0),self.hitbox,2)
 
 
