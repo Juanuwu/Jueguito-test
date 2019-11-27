@@ -7,11 +7,12 @@ import random
 pygame.init()
 
 #configuracion de la ventana
-
+winFlag = 0
 win = pygame.display.set_mode((700,500))
 pygame.display.set_caption("uwu")
 clock = pygame.time.Clock()
 dirname = os.path.dirname(__file__)
+
 
 #imagenes cargadas pero bien
 
@@ -53,7 +54,7 @@ class player(object):
         self.jumpCount = 8
         self.standing = True
         self.hitbox = (self.x , self.y, 28,60)
-        self.rect = pygame.draw.rect(win,(255,0,0),self.hitbox,2)
+        self.rect = pygame.draw.rect(win,(0,0,0),self.hitbox,2)
         self.inGround = True
         self.vida = 25
         self.contador = 0
@@ -123,7 +124,7 @@ class enemi(object):
                 print("uwu")
 
             self.hitbox = (self.x + 16, self.y+2, 28,60)
-            pygame.draw.rect(win,(255,0,0),self.hitbox,2)
+            #pygame.draw.rect(win,(255,0,0),self.hitbox,2)
     
     #funcion que hace que los enemigos te sigan, si tiene comentarios en ingles es probablemente porque me lo robe de por ahi
     def move(self, speed): # chase movement
@@ -213,8 +214,14 @@ def gravedadTest():
         man.inGround = True
 
 #funcion en la que se ponen todas las cosas que se quieren mostrar en la pantalla asi no es todo un quilombo
+
 def redrawGameWindow():
     win.blit(bg, (0,0))
+    if(nivel == 4):
+        font = pygame.font.SysFont('Comic Sans MS', 30)
+        text = font.render('ganaste pibe me quiero ir a mi casa', True,  (100, 0, 0)) 
+        win.blit(text,(200,200,30,30))
+
     if(man.vida >= 0):
         man.draw(win)
     elif keys[pygame.K_SPACE]:
@@ -231,8 +238,10 @@ def redrawGameWindow():
         obstaculo.draw(win)
 
     pygame.draw.rect(win,(255,0,0),(0,0,man.vida*10,20,),0)
-    pygame.display.update()
     
+    pygame.display.update()
+  
+
 
 
 #aca estan los dos enemigos porque hay dos enemigos, BASTANTE SIMPLE
@@ -244,7 +253,9 @@ bullets = []
 enemigos = []
 platforms = []
 listaPinchitos = []
-nivel = 2
+nivel = 1
+
+
 
 def levelCheck(dato):
     nivel = dato
@@ -286,8 +297,14 @@ def levelCheck(dato):
         platforms.append(platform1(400,240,30,200))
         platforms.append(platform1(450,400,30,200))
         platforms.append(platform1(600,325,30,64))
-        platforms.append(platform1(520,150,30,200))
-        man.final = pygame.Rect(560,100,64,64)
+        platforms.append(platform1(520,120,30,200))
+        man.final = pygame.Rect(600,10,30,30)
+    
+    
+        
+        
+    
+
 
         
 
@@ -296,7 +313,7 @@ levelCheck(nivel)
 
 #empieza el loop principial, python no tiene main asi que usamos un while uwu
 while run:
-
+    
     clock.tick(27)
     #todo este choclo hasta la parte donde pone keys son las colisiones de las balas, despues hay que hacer que de menos asco y sacarlo de aca
     #if len(enemigos) <= 0:
@@ -307,7 +324,7 @@ while run:
     gravedadTest()
     #esto se pone en uno cuando el personaje esta en una plataforma, hay que ponerle un nombre que no sea flag
     flag = 0
-
+    
     if shootLoop > 0:
         shootLoop += 1
     if shootLoop > 3:
