@@ -12,7 +12,7 @@ win = pygame.display.set_mode((700,500))
 pygame.display.set_caption("uwu")
 clock = pygame.time.Clock()
 dirname = os.path.dirname(__file__)
-
+gameOver = True  
 
 #imagenes cargadas pero bien
 
@@ -65,6 +65,7 @@ class player(object):
         del enemigos[:]
         self.x = 200
         self.y = 410
+        
     
 
 
@@ -224,9 +225,10 @@ def redrawGameWindow():
 
     if(man.vida >= 0):
         man.draw(win)
-    elif keys[pygame.K_SPACE]:
-        man.vida = 25
-        man.die()
+    
+    else:
+        global gameOver
+        gameOver = True
 
     for bullet in bullets:
         bullet.draw(win)
@@ -284,7 +286,7 @@ def levelCheck(dato):
         a=platform1(100,350,30,200)
         b=platform1(300,200,30,200)
         c=platform1(550,200,30,200)
-        listaPinchitos.append(pinchito(100,350,30,30))
+        #listaPinchitos.append(pinchito(100,350,30,30))
         platforms.append(a)
         platforms.append(b)
         platforms.append(c)
@@ -302,8 +304,8 @@ def levelCheck(dato):
     
     
         
-        
-    
+  
+
 
 
         
@@ -318,6 +320,26 @@ while run:
     #todo este choclo hasta la parte donde pone keys son las colisiones de las balas, despues hay que hacer que de menos asco y sacarlo de aca
     #if len(enemigos) <= 0:
         #enemigos.append(enemi(300,410,64,64))
+    while gameOver == True:
+            
+        win.fill((0,0,0))    
+        font = pygame.font.SysFont('Comic Sans MS', 30)
+        font2 = pygame.font.SysFont('Comic Sans MS', 15)
+        text = font.render('toca para c empezar y q para salir creo', True,  (100, 0, 0))
+        text2 = font2.render('hola este es un menu cuando no tenes ganas de hacer un menu pero es un requisito para aprobar', True,  (0, 255, 0))
+
+        win.blit(text,(100,200,30,30))
+        win.blit(text2,(0,300,30,30))
+        for event in pygame.event.get():
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_q:
+                    pygame.QUIT()
+                if event.key == pygame.K_c:
+                    gameOver = False
+                    man.vida = 25
+                    man.die()
+        pygame.display.flip()
+
 
     #determina si el personaje esta en una plataforma o en el piso, si no lo esta lo tira para abajo hasta que lo este, no se si esta es una forma
     #decente de hacerlo pero es la que se me ocurrio sin buscar un video en youtube, porque me dio paja
