@@ -9,8 +9,8 @@ pygame.init()
 ancho=700
 alto=500
 winFlag = 0
-maldo = 1
-win = pygame.display.set_mode((ancho*maldo, alto*maldo))
+maldo = 20
+win = pygame.display.set_mode((ancho*maldo/10, alto*maldo/10))
 pygame.display.set_caption("uwu")
 clock = pygame.time.Clock()
 dirname = os.path.dirname(__file__)
@@ -19,16 +19,15 @@ resolution = True
 creditos = True
 
 # imagenes cargadas pero bien
-
-walkRight = [pygame.image.load(os.path.join(dirname, 'Game/R1.png')),
-             pygame.image.load(os.path.join(dirname, 'Game/R2.png')),
-             pygame.image.load(os.path.join(dirname, 'Game/R3.png')),
-             pygame.image.load(os.path.join(dirname, 'Game/R4.png')),
-             pygame.image.load(os.path.join(dirname, 'Game/R5.png')),
-             pygame.image.load(os.path.join(dirname, 'Game/R6.png')),
-             pygame.image.load(os.path.join(dirname, 'Game/R7.png')),
-             pygame.image.load(os.path.join(dirname, 'Game/R8.png')),
-             pygame.image.load(os.path.join(dirname, 'Game/R9.png'))]
+walkRight = [pygame.transform.scale(pygame.image.load(os.path.join(dirname, 'Game/R1.png')), ((64*maldo)/10, (64*maldo)/10)),
+            pygame.transform.scale(pygame.image.load(os.path.join(dirname, 'Game/R1.png')), ((64*maldo)/10, (64*maldo)/10)),
+            pygame.transform.scale(pygame.image.load(os.path.join(dirname, 'Game/R1.png')), ((64*maldo)/10, (64*maldo)/10)),
+            pygame.transform.scale(pygame.image.load(os.path.join(dirname, 'Game/R1.png')), ((64*maldo)/10, (64*maldo)/10)),
+            pygame.transform.scale(pygame.image.load(os.path.join(dirname, 'Game/R1.png')), ((64*maldo)/10, (64*maldo)/10)),
+            pygame.transform.scale(pygame.image.load(os.path.join(dirname, 'Game/R1.png')), ((64*maldo)/10, (64*maldo)/10)),
+            pygame.transform.scale(pygame.image.load(os.path.join(dirname, 'Game/R1.png')), ((64*maldo)/10, (64*maldo)/10)),
+            pygame.transform.scale(pygame.image.load(os.path.join(dirname, 'Game/R1.png')), ((64*maldo)/10, (64*maldo)/10)),
+            pygame.transform.scale(pygame.image.load(os.path.join(dirname, 'Game/R1.png')), ((64*maldo)/10, (64*maldo)/10))]
 walkLeft = [pygame.image.load(os.path.join(dirname, 'Game/L1.png')),
             pygame.image.load(os.path.join(dirname, 'Game/L2.png')),
             pygame.image.load(os.path.join(dirname, 'Game/L3.png')),
@@ -44,28 +43,30 @@ bg = pygame.image.load(os.path.join(dirname, 'Game/coso1.png'))
 
 # enemieWalkRight =[pygame.image.load(os.path.join(dirname, 'Game/R1E.png')), pygame.image.load(os.path.join(dirname, 'Game/R2E.png')), pygame.image.load(os.path.join(dirname, 'Game/R3E.png')),pygame.image.load(os.path.join(dirname, 'Game/R4E.png')),pygame.image.load(os.path.join(dirname, 'Game/R5E.png')),pygame.image.load(os.path.join(dirname, 'Game/R6E.png')),pygame.image.load(os.path.join(dirname, 'Game/R7E.png')),pygame.image.load(os.path.join(dirname, 'Game/R8E.png')),pygame.image.load(os.path.join(dirname, 'Game/R9E.png'))]
 elefanteRight = [pygame.image.load(os.path.join(dirname, 'Game/L1E.png')),
-                 pygame.image.load(os.path.join(dirname, 'Game/L2E.png')),
-                 pygame.image.load(os.path.join(dirname, 'Game/L3E.png')),
-                 pygame.image.load(os.path.join(dirname, 'Game/L4E.png')),
-                 pygame.image.load(os.path.join(dirname, 'Game/L5E.png')),
-                 pygame.image.load(os.path.join(dirname, 'Game/L6E.png')),
-                 pygame.image.load(os.path.join(dirname, 'Game/L7E.png')),
-                 pygame.image.load(os.path.join(dirname, 'Game/L8E.png')),
-                 pygame.image.load(os.path.join(dirname, 'Game/L9E.png'))]
+                pygame.image.load(os.path.join(dirname, 'Game/L2E.png')),
+                pygame.image.load(os.path.join(dirname, 'Game/L3E.png')),
+                pygame.image.load(os.path.join(dirname, 'Game/L4E.png')),
+                pygame.image.load(os.path.join(dirname, 'Game/L5E.png')),
+                pygame.image.load(os.path.join(dirname, 'Game/L6E.png')),
+                pygame.image.load(os.path.join(dirname, 'Game/L7E.png')),
+                pygame.image.load(os.path.join(dirname, 'Game/L8E.png')),
+                pygame.image.load(os.path.join(dirname, 'Game/L9E.png'))]
 enemieWalkLeft = [pygame.image.load(os.path.join(dirname, 'Game/F1.png')),
-                  pygame.image.load(os.path.join(dirname, 'Game/F2.png')),
-                  pygame.image.load(os.path.join(dirname, 'Game/F3.png')),
-                  pygame.image.load(os.path.join(dirname, 'Game/F4.png')),
-                  pygame.image.load(os.path.join(dirname, 'Game/F5.png')),
-                  pygame.image.load(os.path.join(dirname, 'Game/F6.png')),
-                  pygame.image.load(os.path.join(dirname, 'Game/F7.png')),
-                  pygame.image.load(os.path.join(dirname, 'Game/F8.png')),
-                  pygame.image.load(os.path.join(dirname, 'Game/F9.png'))]
+                pygame.image.load(os.path.join(dirname, 'Game/F2.png')),
+                pygame.image.load(os.path.join(dirname, 'Game/F3.png')),
+                pygame.image.load(os.path.join(dirname, 'Game/F4.png')),
+                pygame.image.load(os.path.join(dirname, 'Game/F5.png')),
+                pygame.image.load(os.path.join(dirname, 'Game/F6.png')),
+                pygame.image.load(os.path.join(dirname, 'Game/F7.png')),
+                pygame.image.load(os.path.join(dirname, 'Game/F8.png')),
+                pygame.image.load(os.path.join(dirname, 'Game/F9.png'))]
 elefanteLeft = 0
 pinchitoimg = [pygame.transform.scale(pygame.image.load(os.path.join(dirname, 'Game/Spike_b.png')), (30, 30))]
 
 pygame.transform.scale(pygame.image.load(os.path.join(dirname, 'Game/coso.jpg')), (30, 30))
-
+def goto(linenum):
+    global line
+    line = linenum
 class platform1():
     def __init__(self, x, y, width, height):
         self.x = x
@@ -119,6 +120,7 @@ class player(object):
             if self.right:
                 win.blit(walkRight[0], (self.x, self.y))
             else:
+                
                 win.blit(walkLeft[0], (self.x, self.y))
         self.hitbox = (self.x + 15, self.y + 5, 28, 60)
         pygame.draw.rect(win, (255, 0, 0), self.hitbox, 2)
@@ -387,7 +389,7 @@ while run:
                     creditos = False
                     man.vida = 25
                     man.die()
-                    maldo = 1
+                    maldo = 10
                     win = pygame.display.set_mode((ancho, alto))
                     bg = pygame.image.load(os.path.join(dirname, 'Game/coso1.png'))
                 if event.key == pygame.K_2:
@@ -395,8 +397,10 @@ while run:
                     creditos = False
                     man.vida = 25
                     man.die()
-                    maldo = 3/2
-                    win = pygame.display.set_mode((ancho*3/2, alto*3/2))
+                    maldo = 20
+                    goto(20)
+                    
+                    win = pygame.display.set_mode((ancho*maldo/10, alto*maldo/10))
                     bg = pygame.image.load(os.path.join(dirname, 'Game/coso2.png'))
                 if event.key == pygame.K_3:
                     resolution = False
