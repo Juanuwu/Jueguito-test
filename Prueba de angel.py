@@ -18,6 +18,7 @@ gameOver = True
 resolution = True
 creditos = True
 
+
 # imagenes cargadas pero bien
 walkRight = [pygame.transform.scale(pygame.image.load(os.path.join(dirname, 'Game/R1.png')), ((64*maldo)/10, (64*maldo)/10)),
             pygame.transform.scale(pygame.image.load(os.path.join(dirname, 'Game/R1.png')), ((64*maldo)/10, (64*maldo)/10)),
@@ -396,7 +397,8 @@ while run:
                     resolution = False
                     creditos = False
                     man.vida = 25
-                    man.die()
+                    
+                    global maldo
                     maldo = 20
                     goto(20)
                     
