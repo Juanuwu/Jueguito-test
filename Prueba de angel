@@ -284,44 +284,44 @@ nivel = 1
 
 def levelCheck(dato):
     nivel = dato
-    man.x = 200
-    man.y = 410
+    man.x = 200*maldo
+    man.y = 410*maldo
     del enemigos[:]
     del platforms[:]
     man.contador = 0
 
     if (nivel == 1):
 
-        enemigos.append(enemi(100, 410, 64, 64))
-        enemigos.append(enemi(80, 410, 64, 64))
+        enemigos.append(enemi(100*maldo, 410*maldo, 64*maldo, 64*maldo))
+        enemigos.append(enemi(80*maldo, 410*maldo, 64*maldo, 64*maldo))
 
-        platforms.append(platform1(300, 400, 30, 200))
-        platforms.append(platform1(550, 300, 30, 200))
-        platforms.append(platform1(200, 200, 30, 200))
-        platforms.append(platform1(500, 200, 30, 64))
+        platforms.append(platform1(300*maldo, 400*maldo, 30*maldo, 200*maldo))
+        platforms.append(platform1(550*maldo, 300*maldo, 30*maldo, 200*maldo))
+        platforms.append(platform1(200*maldo, 200*maldo, 30*maldo, 200*maldo))
+        platforms.append(platform1(500*maldo, 200*maldo, 30*maldo, 64*maldo))
 
 
 
     elif (nivel == 2):
 
-        a = platform1(100, 350, 30, 200)
-        b = platform1(300, 200, 30, 200)
-        c = platform1(550, 200, 30, 200)
+        a = platform1(100*maldo, 350*maldo, 30*maldo, 200*maldo)
+        b = platform1(300*maldo, 200*maldo, 30*maldo, 200*maldo)
+        c = platform1(550*maldo, 200*maldo, 30*maldo, 200*maldo)
         # listaPinchitos.append(pinchito(100,350,30,30))
         platforms.append(a)
         platforms.append(b)
         platforms.append(c)
-        man.final = pygame.Rect(550, 200, 64, 64)
+        man.final = pygame.Rect(550*maldo, 200*maldo, 64*maldo, 64*maldo)
         man.contador = 0
 
     elif (nivel == 3):
-        platforms.append(platform1(100, 375, 30, 200))
-        platforms.append(platform1(300, 250, 30, 64))
-        platforms.append(platform1(400, 240, 30, 200))
-        platforms.append(platform1(450, 400, 30, 200))
-        platforms.append(platform1(600, 325, 30, 64))
-        platforms.append(platform1(520, 120, 30, 200))
-        man.final = pygame.Rect(600, 10, 30, 30)
+        platforms.append(platform1(100*maldo, 375*maldo, 30*maldo, 200*maldo))
+        platforms.append(platform1(300*maldo, 250*maldo, 30*maldo, 64*maldo))
+        platforms.append(platform1(400*maldo, 240*maldo, 30*maldo, 200*maldo))
+        platforms.append(platform1(450*maldo, 400*maldo, 30*maldo, 200*maldo))
+        platforms.append(platform1(600*maldo, 325*maldo, 30*maldo, 64*maldo))
+        platforms.append(platform1(520*maldo, 120*maldo, 30*maldo, 200*maldo))
+        man.final = pygame.Rect(600*maldo, 10*maldo, 30*maldo, 30*maldo)
 
 
 levelCheck(nivel)
@@ -366,7 +366,7 @@ while run:
         font = pygame.font.SysFont('Comic Sans MS', 30)
         font2 = pygame.font.SysFont('Comic Sans MS', 30)
         text = font.render('E para regresar  Q para salir', True, (100, 0, 0))
-        text2 = font2.render('Elija su resolucion:  1_700x500    2-1400x1000', True,
+        text2 = font2.render('Elija su resolucion:  1- 700x500    2-1050x750     3- 1400x1000', True,
             (0, 255, 0))
 
         win.blit(text, (100, 200, 30, 30))
@@ -381,15 +381,24 @@ while run:
                     creditos = False
                 if event.key == pygame.K_1:
                     resolution = False
+                    creditos = False
                     man.vida = 25
                     man.die()
-                    x = x * 2
-                    y = y * 2
                 if event.key == pygame.K_2:
                     resolution = False
+                    creditos = False
                     man.vida = 25
                     man.die()
                     maldo = 3/2
+                    win = pygame.display.set_mode((ancho*3/2, alto*3/2))
+                    [pygame.transform.scale(pygame.image.load(os.path.join(dirname, 'Game/coso.jpg')), (30, 30))]
+                if event.key == pygame.K_3:
+                    resolution = False
+                    creditos = False
+                    man.vida = 25
+                    man.die()
+                    maldo = 5/2
+                    win = pygame.display.set_mode((ancho*5/2, alto*5/2))
         pygame.display.flip()
 
     while creditos == True:
@@ -532,4 +541,3 @@ while run:
         man.x = 700
 
 pygame.quit()
-
