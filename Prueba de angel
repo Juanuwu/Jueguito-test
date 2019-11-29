@@ -39,8 +39,7 @@ walkLeft = [pygame.image.load(os.path.join(dirname, 'Game/L1.png')),
             pygame.image.load(os.path.join(dirname, 'Game/L8.png')),
             pygame.image.load(os.path.join(dirname, 'Game/L9.png'))]
 char = pygame.image.load(os.path.join(dirname, 'Game/standing.png'))
-bg = pygame.image.load(os.path.join(dirname, 'Game/coso1.png'))
-
+bg = pygame.image.load(os.path.join(dirname, 'Game/coso.jpg'))
 # enemieWalkRight =[pygame.image.load(os.path.join(dirname, 'Game/R1E.png')), pygame.image.load(os.path.join(dirname, 'Game/R2E.png')), pygame.image.load(os.path.join(dirname, 'Game/R3E.png')),pygame.image.load(os.path.join(dirname, 'Game/R4E.png')),pygame.image.load(os.path.join(dirname, 'Game/R5E.png')),pygame.image.load(os.path.join(dirname, 'Game/R6E.png')),pygame.image.load(os.path.join(dirname, 'Game/R7E.png')),pygame.image.load(os.path.join(dirname, 'Game/R8E.png')),pygame.image.load(os.path.join(dirname, 'Game/R9E.png'))]
 elefanteRight = [pygame.image.load(os.path.join(dirname, 'Game/L1E.png')),
                  pygame.image.load(os.path.join(dirname, 'Game/L2E.png')),
@@ -63,7 +62,6 @@ enemieWalkLeft = [pygame.image.load(os.path.join(dirname, 'Game/F1.png')),
 elefanteLeft = 0
 pinchitoimg = [pygame.transform.scale(pygame.image.load(os.path.join(dirname, 'Game/Spike_b.png')), (30, 30))]
 
-pygame.transform.scale(pygame.image.load(os.path.join(dirname, 'Game/coso.jpg')), (30, 30))
 
 class platform1():
     def __init__(self, x, y, width, height):
@@ -340,7 +338,7 @@ while run:
         win.fill((0, 0, 0))
         font = pygame.font.SysFont('Comic Sans MS', 30)
         font2 = pygame.font.SysFont('Comic Sans MS', 15)
-        text = font.render('C para jugar  X para creditos  S para salir', True, (100, 0, 0))
+        text = font.render('C para jugar  X para creditos  Q para salir', True, (100, 0, 0))
         text2 = font2.render(
             'hola este es un menu cuando no tenes ganas de hacer un menu pero es un requisito para aprobar', True,
             (0, 255, 0))
@@ -349,7 +347,7 @@ while run:
         win.blit(text2, (0, 300, 30, 30))
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_s:
+                if event.key == pygame.K_q:
                     pygame.QUIT()
                 if event.key == pygame.K_c:
                     gameOver = False
@@ -366,8 +364,8 @@ while run:
 
         win.fill((0, 0, 0))
         font = pygame.font.SysFont('Comic Sans MS', 30)
-        font2 = pygame.font.SysFont('Comic Sans MS', 15)
-        text = font.render('E para regresar  S para salir', True, (100, 0, 0))
+        font2 = pygame.font.SysFont('Comic Sans MS', 30)
+        text = font.render('E para regresar  Q para salir', True, (100, 0, 0))
         text2 = font2.render('Elija su resolucion:  1- 700x500    2-1050x750     3- 1400x1000', True,
             (0, 255, 0))
 
@@ -375,7 +373,7 @@ while run:
         win.blit(text2, (0, 300, 30, 30))
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_s:
+                if event.key == pygame.K_q:
                     pygame.QUIT()
                 if event.key == pygame.K_e:
                     resolution = False
@@ -386,26 +384,21 @@ while run:
                     creditos = False
                     man.vida = 25
                     man.die()
-                    maldo = 1
-                    win = pygame.display.set_mode((ancho, alto))
-                    bg = pygame.image.load(os.path.join(dirname, 'Game/coso1.png'))
                 if event.key == pygame.K_2:
                     resolution = False
                     creditos = False
                     man.vida = 25
                     man.die()
-                    maldo = 15/10
-                    win = pygame.display.set_mode((ancho*maldo, alto*maldo))
-                    bg = pygame.image.load(os.path.join(dirname, 'Game/coso2.png'))
+                    maldo = 3/2
+                    win = pygame.display.set_mode((ancho*3/2, alto*3/2))
+                    [pygame.transform.scale(pygame.image.load(os.path.join(dirname, 'Game/coso.jpg')), (30, 30))]
                 if event.key == pygame.K_3:
                     resolution = False
                     creditos = False
                     man.vida = 25
                     man.die()
-                    maldo = 2
-                    win = pygame.display.set_mode((ancho*maldo, alto*maldo))
-                    bg = pygame.image.load(os.path.join(dirname, 'Game/coso3.png'))
-
+                    maldo = 5/2
+                    win = pygame.display.set_mode((ancho*5/2, alto*5/2))
         pygame.display.flip()
 
     while creditos == True:
@@ -413,7 +406,7 @@ while run:
         win.fill((0, 0, 0))
         font = pygame.font.SysFont('Comic Sans MS', 30)
         font2 = pygame.font.SysFont('Comic Sans MS', 20)
-        text = font.render('E para volver atras  S para salir', True, (100, 0, 0))
+        text = font.render('E para volver atras  Q para salir', True, (100, 0, 0))
         text2 = font2.render('Juan Carosella - Fabian Martinez - Angel Lopez', True,
             (50, 255, 0))
 
@@ -421,7 +414,7 @@ while run:
         win.blit(text2, (0, 300, 30, 30))
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_s:
+                if event.key == pygame.K_q:
                     pygame.QUIT()
                 if event.key == pygame.K_e:
                     resolution = True
@@ -493,7 +486,7 @@ while run:
             facing = -1
         else:
             facing = 1
-        if len(bullets) < 50*maldo:
+        if len(bullets) < 50:
             bullets.append(
                 proyectil(round(man.x + man.width // 2), round(man.y + man.height // 2), 5, (0, 0, 0), facing))
             shootLoop = 1
@@ -542,9 +535,9 @@ while run:
     redrawGameWindow()
     man.inGround = False
     # bordes
-    if man.x > 700*maldo:
-        man.x = -40*maldo
-    if man.x < -50*maldo:
-        man.x = 700*maldo
+    if man.x > 700:
+        man.x = -40
+    if man.x < -50:
+        man.x = 700
 
 pygame.quit()
