@@ -47,6 +47,7 @@ walkLeft = [pygame.image.load(os.path.join(dirname, 'Game/L1.png')),
             pygame.image.load(os.path.join(dirname, 'Game/L9.png'))]
 char = pygame.image.load(os.path.join(dirname, 'Game/standing.png'))
 bg = pygame.image.load(os.path.join(dirname, 'Game/coso1.png'))
+menu = pygame.transform.scale(pygame.image.load(os.path.join(dirname, 'Game/coso2.jpg')), (ancho*maldo, alto*maldo))
 
 
 # enemieWalkRight =[pygame.image.load(os.path.join(dirname, 'Game/R1E.png')), pygame.image.load(os.path.join(dirname, 'Game/R2E.png')), pygame.image.load(os.path.join(dirname, 'Game/R3E.png')),pygame.image.load(os.path.join(dirname, 'Game/R4E.png')),pygame.image.load(os.path.join(dirname, 'Game/R5E.png')),pygame.image.load(os.path.join(dirname, 'Game/R6E.png')),pygame.image.load(os.path.join(dirname, 'Game/R7E.png')),pygame.image.load(os.path.join(dirname, 'Game/R8E.png')),pygame.image.load(os.path.join(dirname, 'Game/R9E.png'))]
@@ -348,16 +349,16 @@ while run:
         win.fill((0, 0, 0))
         font = pygame.font.SysFont('Comic Sans MS', 30)
         font2 = pygame.font.SysFont('Comic Sans MS', 15)
-        text = font.render('C para jugar  X para creditos  S para salir', True, (100, 0, 0))
+        win.blit(menu,(0,0))
         text2 = font2.render(
             'hola este es un menu cuando no tenes ganas de hacer un menu pero es un requisito para aprobar', True,
             (0, 255, 0))
 
-        win.blit(text, (50, 200, 30, 30))
-        win.blit(text2, (0, 300, 30, 30))
+       
+        win.blit(text2, (0, 100, 30, 30))
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_s:
+                if event.key == pygame.K_q:
                     pygame.QUIT()
                 if event.key == pygame.K_c:
                     gameOver = False
@@ -370,20 +371,20 @@ while run:
 
     while resolution == True:
 
-        win.fill((0, 0, 0))
+        win.fill((0,0,0))
         font = pygame.font.SysFont('Comic Sans MS', 30)
         font2 = pygame.font.SysFont('Comic Sans MS', 15)
-        text = font.render('E para regresar  S para salir', True, (100, 0, 0))
+        
         text2 = font2.render('Elija su resolucion:  1- 700x500    2-1050x750     3- 1400x1000', True,
             (0, 255, 0))
 
-        win.blit(text, (100, 200, 30, 30))
+        
         win.blit(text2, (0, 300, 30, 30))
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_s:
+                if event.key == pygame.K_q:
                     pygame.QUIT()
-                if event.key == pygame.K_e:
+                if event.key == pygame.K_c:
                     resolution = False
                     gameOver = True
                     creditos = False
@@ -431,7 +432,7 @@ while run:
         win.blit(text2, (0, 300, 30, 30))
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_s:
+                if event.key == pygame.K_q:
                     pygame.QUIT()
                 if event.key == pygame.K_e:
                     resolution = True
