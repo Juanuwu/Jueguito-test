@@ -20,7 +20,7 @@ gameOver = True
 resolution = True
 creditos = True
 
-
+nivel = 3
 def goto(linenum):
     global line
     line = linenum
@@ -47,7 +47,8 @@ walkLeft = [pygame.image.load(os.path.join(dirname, 'Game/L1.png')),
             pygame.image.load(os.path.join(dirname, 'Game/L9.png'))]
 char = pygame.image.load(os.path.join(dirname, 'Game/standing.png'))
 bg = pygame.image.load(os.path.join(dirname, 'Game/coso1.png'))
-menu = pygame.transform.scale(pygame.image.load(os.path.join(dirname, 'Game/coso2.jpg')), (ancho*maldo, alto*maldo))
+ganaste = pygame.transform.scale(pygame.image.load(os.path.join(dirname, 'Game/coso2.jpg')), (ancho*maldo, alto*maldo))
+menu = menu = pygame.transform.scale(pygame.image.load(os.path.join(dirname, 'Game/menu.jpg')), (ancho*maldo, alto*maldo))
 
 
 # enemieWalkRight =[pygame.image.load(os.path.join(dirname, 'Game/R1E.png')), pygame.image.load(os.path.join(dirname, 'Game/R2E.png')), pygame.image.load(os.path.join(dirname, 'Game/R3E.png')),pygame.image.load(os.path.join(dirname, 'Game/R4E.png')),pygame.image.load(os.path.join(dirname, 'Game/R5E.png')),pygame.image.load(os.path.join(dirname, 'Game/R6E.png')),pygame.image.load(os.path.join(dirname, 'Game/R7E.png')),pygame.image.load(os.path.join(dirname, 'Game/R8E.png')),pygame.image.load(os.path.join(dirname, 'Game/R9E.png'))]
@@ -250,13 +251,25 @@ def gravedadTest():
 
 # funcion en la que se ponen todas las cosas que se quieren mostrar en la pantalla asi no es todo un quilombo
 
+
 def redrawGameWindow():
     win.blit(bg, (0, 0))
+    
     if (nivel == 4):
         font = pygame.font.SysFont('Comic Sans MS', 30)
         text = font.render('ganaste pibe me quiero ir a mi casa', True, (100, 0, 0))
         win.blit(text, (200, 200, 30, 30))
-
+        win.blit(ganaste,(0,0))
+        for event in pygame.event.get():
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_q:
+                    pygame.QUIT()
+                if event.key == pygame.K_c:
+                    gameOver = True
+                    global nivel
+                    nivel = 3
+                    goto(20)
+                    
     if (man.vida >= 0):
         man.draw(win)
 
@@ -290,11 +303,11 @@ bullets = []
 enemigos = []
 platforms = []
 listaPinchitos = []
-nivel = 1
+
 
 
 def levelCheck(dato):
-    nivel = dato
+    global nivel
     man.x = 200*maldo
     man.y = 410*maldo
     del enemigos[:]
@@ -333,8 +346,9 @@ def levelCheck(dato):
         platforms.append(platform1(600*maldo, 325*maldo, 30*maldo, 64*maldo))
         platforms.append(platform1(520*maldo, 120*maldo, 30*maldo, 200*maldo))
         man.final = pygame.Rect(600*maldo, 10*maldo, 30*maldo, 30*maldo)
-
-
+        print("aca")
+    
+        
 levelCheck(nivel)
 
 # empieza el loop principial, python no tiene main asi que usamos un while uwu
@@ -344,6 +358,8 @@ while run:
     # todo este choclo hasta la parte donde pone keys son las colisiones de las balas, despues hay que hacer que de menos asco y sacarlo de aca
     # if len(enemigos) <= 0:
     # enemigos.append(enemi(300,410,64,64))
+     
+    
     while gameOver == True:
 
         win.fill((0, 0, 0))
@@ -355,7 +371,7 @@ while run:
             (0, 255, 0))
 
        
-        win.blit(text2, (0, 100, 30, 30))
+        win.blit(text2, (0, 50, 30, 30))
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_q:
@@ -384,10 +400,7 @@ while run:
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_q:
                     pygame.QUIT()
-                if event.key == pygame.K_c:
-                    resolution = False
-                    gameOver = True
-                    creditos = False
+                
                 if event.key == pygame.K_1:
                     resolution = False
                     creditos = False
@@ -397,6 +410,8 @@ while run:
                     maldo = 1
                     win = pygame.display.set_mode((ancho, alto))
                     bg = pygame.image.load(os.path.join(dirname, 'Game/coso1.png'))
+                    
+                    
                 if event.key == pygame.K_2:
                     resolution = False
                     creditos = False
@@ -406,6 +421,7 @@ while run:
                     maldo = 3/2
                     win = pygame.display.set_mode((ancho*3/2, alto*3/2))
                     bg = pygame.image.load(os.path.join(dirname, 'Game/coso2.png'))
+                    
                 if event.key == pygame.K_3:
                     resolution = False
                     creditos = False
@@ -415,30 +431,11 @@ while run:
                     maldo = 2
                     win = pygame.display.set_mode((ancho*maldo, alto*maldo))
                     bg = pygame.image.load(os.path.join(dirname, 'Game/coso3.png'))
+                    
 
         pygame.display.flip()
 
-    while creditos == True:
-
-        win.fill((0, 0, 0))
-        font = pygame.font.SysFont('Comic Sans MS', 30)
-        font2 = pygame.font.SysFont('Comic Sans MS', 20)
-
-        text = font.render('E para volver atras  S para salir', True, (100, 0, 0))
-        text2 = font2.render('Juan Carosella - Fabian Martinez - Angel Lopez', True,
-            (50, 255, 0))
-
-        win.blit(text, (100, 200, 30, 30))
-        win.blit(text2, (0, 300, 30, 30))
-        for event in pygame.event.get():
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_q:
-                    pygame.QUIT()
-                if event.key == pygame.K_e:
-                    resolution = True
-                    gameOver = True
-                    creditos = False
-        pygame.display.flip()
+  
 
 
     # determina si el personaje esta en una plataforma o en el piso, si no lo esta lo tira para abajo hasta que lo este, no se si esta es una forma
