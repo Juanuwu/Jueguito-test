@@ -20,7 +20,7 @@ gameOver = True
 resolution = True
 creditos = True
 
-nivel = 3
+nivel = 1
 def goto(linenum):
     global line
     line = linenum
